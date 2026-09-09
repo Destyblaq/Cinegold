@@ -35,10 +35,6 @@
             min-height: 100vh;
         }
 
-        /* =========================
-           NAVBAR
-        ========================== */
-
         .navbar {
             height: 75px;
             width: 100%;
@@ -46,11 +42,9 @@
             top: 0;
             left: 0;
             z-index: 1000;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-
             padding: 0 6%;
             background: rgba(7,7,7,0.88);
             backdrop-filter: blur(12px);
@@ -122,10 +116,6 @@
             cursor: pointer;
         }
 
-        /* =========================
-           LOGIN SECTION
-        ========================== */
-
         .login-page {
             min-height: 100vh;
             display: flex;
@@ -181,10 +171,6 @@
             font-size: 14px;
         }
 
-        /* =========================
-           FORM
-        ========================== */
-
         .form-group {
             margin-bottom: 19px;
         }
@@ -204,16 +190,12 @@
             width: 100%;
             height: 52px;
             padding: 0 48px 0 15px;
-
             background: #0b0b0b;
             color: var(--white);
-
             border: 1px solid var(--border);
             border-radius: 9px;
-
             outline: none;
             font-size: 15px;
-
             transition: 0.3s;
         }
 
@@ -236,11 +218,9 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-
             border: none;
             background: none;
             color: var(--gray);
-
             cursor: pointer;
             font-size: 16px;
         }
@@ -248,10 +228,6 @@
         .password-toggle:hover {
             color: var(--yellow);
         }
-
-        /* =========================
-           OPTIONS
-        ========================== */
 
         .form-options {
             display: flex;
@@ -285,23 +261,15 @@
             text-decoration: underline;
         }
 
-        /* =========================
-           LOGIN BUTTON
-        ========================== */
-
         .login-btn {
             width: 100%;
             height: 52px;
-
             border: none;
             border-radius: 9px;
-
             background: linear-gradient(135deg, var(--yellow), var(--gold));
             color: var(--black);
-
             font-size: 15px;
             font-weight: 900;
-
             cursor: pointer;
             transition: 0.3s;
         }
@@ -316,10 +284,6 @@
             cursor: not-allowed;
             transform: none;
         }
-
-        /* =========================
-           DIVIDER
-        ========================== */
 
         .divider {
             display: flex;
@@ -339,10 +303,6 @@
             font-size: 12px;
         }
 
-        /* =========================
-           SOCIAL LOGIN
-        ========================== */
-
         .social-buttons {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -354,11 +314,9 @@
             background: #0b0b0b;
             border: 1px solid var(--border);
             border-radius: 8px;
-
             color: var(--white);
             font-size: 13px;
             font-weight: 700;
-
             cursor: pointer;
             transition: 0.3s;
         }
@@ -367,10 +325,6 @@
             border-color: var(--gold);
             background: #151515;
         }
-
-        /* =========================
-           SIGN UP
-        ========================== */
 
         .signup-text {
             text-align: center;
@@ -388,10 +342,6 @@
         .signup-text a:hover {
             text-decoration: underline;
         }
-
-        /* =========================
-           MESSAGE
-        ========================== */
 
         .message {
             display: none;
@@ -416,10 +366,6 @@
             color: #72e6a0;
         }
 
-        /* =========================
-           FOOTER
-        ========================== */
-
         .footer {
             border-top: 1px solid var(--border);
             padding: 25px 6%;
@@ -432,21 +378,14 @@
             color: var(--gold);
         }
 
-        /* =========================
-           MOBILE
-        ========================== */
-
         @media (max-width: 850px) {
-
             .nav-links,
             .nav-actions {
                 display: none;
             }
-
             .menu-btn {
                 display: block;
             }
-
             .navbar.mobile-open {
                 height: auto;
                 min-height: 75px;
@@ -454,7 +393,6 @@
                 padding-top: 20px;
                 padding-bottom: 20px;
             }
-
             .navbar.mobile-open .nav-links {
                 display: flex;
                 flex-direction: column;
@@ -463,13 +401,11 @@
                 gap: 18px;
                 padding: 25px 0 10px;
             }
-
             .navbar.mobile-open .nav-actions {
                 display: flex;
                 width: 100%;
                 padding-top: 10px;
             }
-
             .navbar.mobile-open .nav-login,
             .navbar.mobile-open .nav-signup {
                 flex: 1;
@@ -478,28 +414,22 @@
         }
 
         @media (max-width: 520px) {
-
             .login-page {
                 padding: 105px 14px 35px;
             }
-
             .login-card {
                 padding: 28px 20px;
                 border-radius: 14px;
             }
-
             .login-logo h1 {
                 font-size: 30px;
             }
-
             .welcome h2 {
                 font-size: 22px;
             }
-
             .social-buttons {
                 grid-template-columns: 1fr;
             }
-
             .form-options {
                 align-items: flex-start;
             }
@@ -509,16 +439,11 @@
 
 <body>
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
-
     <header class="navbar" id="navbar">
 
         <a href="index.html" class="logo">
             Cine<span>Gold</span>
         </a>
-
 
         <nav class="nav-links">
             <a href="index.html">Home</a>
@@ -540,11 +465,6 @@
 
     </header>
 
-
-    <!-- =========================
-         LOGIN PAGE
-    ========================== -->
-
     <main class="login-page">
 
         <div class="login-container">
@@ -563,10 +483,7 @@
 
                 <div class="message" id="message"></div>
 
-
                 <form id="loginForm">
-
-                    <!-- Email -->
 
                     <div class="form-group">
 
@@ -592,9 +509,6 @@
                         </div>
 
                     </div>
-
-
-                    <!-- Password -->
 
                     <div class="form-group">
 
@@ -625,9 +539,6 @@
 
                     </div>
 
-
-                    <!-- Options -->
-
                     <div class="form-options">
 
                         <label class="remember">
@@ -647,9 +558,6 @@
 
                     </div>
 
-
-                    <!-- Login -->
-
                     <button
                         type="submit"
                         class="login-btn"
@@ -660,17 +568,11 @@
 
                 </form>
 
-
-                <!-- Divider -->
-
                 <div class="divider">
                     <span></span>
                     <p>OR</p>
                     <span></span>
                 </div>
-
-
-                <!-- Social login -->
 
                 <div class="social-buttons">
 
@@ -698,9 +600,6 @@
                    </a>
 </div>
 
-
-                <!-- Sign up -->
-
                 <p class="signup-text">
                     Don't have a CineGold account?
                     <a href="signup.html">Create an account</a>
@@ -714,25 +613,11 @@
     </main>
     
 
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
     <footer class="footer">
-        © <span id="year"></span> CineGold. All rights reserved.
+        ©️ <span id="year"></span> CineGold. All rights reserved.
     </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
     <script>
-
-        /* =========================
-           BASIC ELEMENTS
-        ========================== */
 
         const loginForm = document.getElementById("loginForm");
         const emailInput = document.getElementById("email");
@@ -747,11 +632,6 @@
         document.getElementById("year").textContent =
             new Date().getFullYear();
 
-
-        /* =========================
-           MOBILE MENU
-        ========================== */
-
         menuBtn.addEventListener("click", function () {
 
             navbar.classList.toggle("mobile-open");
@@ -763,11 +643,6 @@
             }
 
         });
-
-
-        /* =========================
-           PASSWORD SHOW / HIDE
-        ========================== */
 
         passwordToggle.addEventListener("click", function () {
 
@@ -785,11 +660,6 @@
 
         });
 
-
-        /* =========================
-           MESSAGE FUNCTION
-        ========================== */
-
         function showMessage(text, type) {
 
             message.textContent = text;
@@ -798,18 +668,12 @@
 
         }
 
-
         function clearMessage() {
 
             message.textContent = "";
             message.className = "message";
 
         }
-
-
-        /* =========================
-           EMAIL VALIDATION
-        ========================== */
 
         function isValidEmail(email) {
 
@@ -819,11 +683,6 @@
             return emailPattern.test(email);
 
         }
-
-
-        /* =========================
-           LOGIN
-        ========================== */
 
         loginForm.addEventListener("submit", function (event) {
 
@@ -840,9 +699,6 @@
             const remember =
                 document.getElementById("remember").checked;
 
-
-            /* Validate email */
-
             if (!isValidEmail(email)) {
 
                 showMessage(
@@ -854,9 +710,6 @@
 
                 return;
             }
-
-
-            /* Validate password */
 
             if (password.length < 6) {
 
@@ -870,12 +723,8 @@
                 return;
             }
 
-
-            /* Loading state */
-
             loginBtn.disabled = true;
             loginBtn.textContent = "Signing in...";
-
 
             /* Real login request to the CineGold backend */
 
@@ -911,9 +760,6 @@
                         return;
                     }
 
-
-                    /* Save login session (includes the auth token) */
-
                     const session = {
 
                         id: data.user.id,
@@ -925,7 +771,6 @@
                         loginTime: new Date().toISOString()
 
                     };
-
 
                     if (remember) {
 
@@ -943,12 +788,10 @@
 
                     }
 
-
                     showMessage(
                         "Login successful! Redirecting...",
                         "success"
                     );
-
 
                     setTimeout(function () {
 
@@ -975,11 +818,6 @@
 
         });
 
-
-        /* =========================
-           FORGOT PASSWORD
-        ========================== */
-
         document
             .getElementById("forgotPassword")
             .addEventListener("click", function (event) {
@@ -993,11 +831,6 @@
 
             });
 
-
-        /* =========================
-           GOOGLE LOGIN
-        ========================== */
-
         document
             .getElementById("googleLogin")
             .addEventListener("click", function () {
@@ -1008,11 +841,6 @@
                 );
 
             });
-
-
-        /* =========================
-           APPLE LOGIN
-        ========================== */
 
         document
             .getElementById("appleLogin")
@@ -1025,11 +853,6 @@
 
             });
 
-
-        /* =========================
-           CHECK EXISTING SESSION
-        ========================== */
-
         function checkExistingSession() {
 
             const localSession =
@@ -1038,14 +861,12 @@
             const temporarySession =
                 sessionStorage.getItem("cinegold_session");
 
-
             if (localSession || temporarySession) {
 
                 const session =
                     JSON.parse(
                         localSession || temporarySession
                     );
-
 
                 if (session && session.loggedIn) {
 
@@ -1061,10 +882,9 @@
 
         }
 
-
         checkExistingSession();
 
     </script>
 
-</body> 
-</html
+</body>
+</html>
