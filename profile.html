@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineGold — Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #070707;
+            --dark: #111111;
+            --dark-2: #181818;
+            --gold: #D4AF37;
+            --yellow: #FFD21F;
+            --white: #ffffff;
+            --gray: #a5a5a5;
+            --light-gray: #d8d8d8;
+            --border: #2b2b2b;
+            --green: #22c55e;
+            --red: #ef4444;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            height: 72px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            background: rgba(7, 7, 7, 0.96);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--yellow);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            border: none;
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .profile-mini {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--yellow), var(--gold));
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ================= PAGE ================= */
+
+        .page {
+            padding: 110px 5% 60px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: var(--gray);
+        }
+
+        /* ================= PROFILE HEADER ================= */
+
+        .profile-header {
+            background: linear-gradient(
+                135deg,
+                #181818,
+                #0e0e0e
+            );
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .profile-main {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--yellow), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-size: 35px;
+            font-weight: 900;
+            border: 4px solid rgba(255, 210, 31, 0.2);
+        }
+
+        .profile-info h2 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .profile-info p {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .member-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: var(--yellow);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .edit-btn {
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+            background: transparent;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        /* ================= GRID ================= */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title h3 {
+            font-size: 20px;
+        }
+
+        .card-title a {
+            color: var(--yellow);
+            font-size: 13px;
+        }
+
+        /* ================= WATCHLIST ================= */
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .movie-card {
+            background: var(--dark-2);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .movie-details {
+            padding: 12px;
+        }
+
+        .movie-details h4 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-details p {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .remove-watchlist {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.75);
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .remove-watchlist:hover {
+            background: var(--red);
+        }
+
+        .empty-state {
+            padding: 35px 15px;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .empty-state-icon {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state a {
+            display: inline-block;
+            margin-top: 15px;
+            background: var(--yellow);
+            color: var(--black);
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-weight: 700;
+        }
+
+        /* ================= CONTINUE WATCHING ================= */
+
+        .continue-item {
+            display: flex;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .continue-item:last-child {
+            border-bottom: none;
+        }
+
+        .continue-poster {
+            width: 85px;
+            height: 115px;
+            object-fit: cover;
+            border-radius: 7px;
+        }
+
+        .continue-info {
+            flex: 1;
+        }
+
+        .continue-info h4 {
+            font-size: 15px;
+            margin-bottom: 7px;
+        }
+
+        .continue-info p {
+            color: var(--gray);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .progress {
+            height: 5px;
+            background: #333;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            background: var(--yellow);
+        }
+
+        .continue-info small {
+            color: var(--gray);
+        }
+
+        /* ================= SUBSCRIPTION ================= */
+
+        .subscription {
+            background: linear-gradient(
+                135deg,
+                rgba(212,175,55,0.15),
+                rgba(255,210,31,0.03)
+            );
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+
+        .plan-name {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--yellow);
+            margin-bottom: 5px;
+        }
+
+        .plan-status {
+            color: var(--green);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .subscription-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .sub-box {
+            background: rgba(255,255,255,0.04);
+            border-radius: 8px;
+            padding: 13px;
+        }
+
+        .sub-box span {
+            display: block;
+            font-size: 11px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .sub-box strong {
+            font-size: 14px;
+        }
+
+        .upgrade-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            background: var(--yellow);
+            border: none;
+            border-radius: 8px;
+            color: var(--black);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .upgrade-btn:hover {
+            background: var(--gold);
+        }
+
+        /* ================= ACCOUNT ================= */
+
+        .account-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .account-action {
+            width: 100%;
+            padding: 14px;
+            background: #151515;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--white);
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .account-action:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .logout {
+            color: #ff7777;
+        }
+
+        .logout:hover {
+            color: #ff4444;
+            border-color: #ff4444;
+        }
+
+        /* ================= MODAL ================= */
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 500px;
+            background: #151515;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 20px 70px rgba(0,0,0,0.6);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            font-size: 22px;
+        }
+
+        .close-modal {
+            border: none;
+            background: transparent;
+            color: var(--white);
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--light-gray);
+            font-size: 13px;
+            margin-bottom: 7px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #0c0c0c;
+            color: var(--white);
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--yellow);
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: var(--yellow);
+            color: var(--black);
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 3000;
+            background: #202020;
+            border: 1px solid var(--gold);
+            color: var(--white);
+            padding: 14px 18px;
+            border-radius: 8px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+            padding: 35px 5%;
+            color: var(--gray);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer strong {
+            color: var(--yellow);
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1100px) {
+            .movie-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                right: -100%;
+                width: 280px;
+                height: calc(100vh - 72px);
+                background: #101010;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 30px;
+                gap: 25px;
+                border-left: 1px solid var(--border);
+                transition: 0.3s;
+            }
+
+            .nav-links.show {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .page {
+                padding: 100px 20px 40px;
+            }
+
+            .page-title h1 {
+                font-size: 30px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-main {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .movie-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .movie-poster {
+                height: 180px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 420px) {
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-actions {
+                gap: 8px;
+            }
+
+            .profile-mini {
+                width: 35px;
+                height: 35px;
+            }
+
+            .movie-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .movie-poster {
+                height: 150px;
+            }
+
+            .subscription-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Cine<span>Gold</span>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Browse</a>
+            <a href="browse.html?type=Movie">Movies</a>
+            <a href="browse.html?type=Series">Series</a>
+            <a href="browse.html?sort=rating">Trending</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+        </div>
+
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="goToBrowse()">🔍</button>
+
+            <a href="profile.html">
+                <div class="profile-mini" id="navAvatar">U</div>
+            </a>
+
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+
+    </nav>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="page">
+
+        <div class="page-title">
+            <h1>My Profile</h1>
+            <p>Manage your CineGold account and entertainment experience.</p>
+        </div>
+
+
+        <!-- PROFILE HEADER -->
+
+        <section class="profile-header">
+
+            <div class="profile-main">
+
+                <div class="avatar" id="avatar">
+                    U
+                </div>
+
+                <div class="profile-info">
+                    <h2 id="profileName">CineGold User</h2>
+                    <p id="profileEmail">user@cinegold.com</p>
+
+                    <span class="member-badge">
+                        ✦ CineGold Member
+                    </span>
+                </div>
+
+            </div>
+
+            <button class="edit-btn" onclick="openEditModal()">
+                ✏️ Edit Profile
+            </button>
+
+        </section>
+
+
+        <!-- DASHBOARD -->
+
+        <div class="dashboard-grid">
+
+            <!-- LEFT COLUMN -->
+
+            <div>
+
+                <!-- MY LIST -->
+
+                <section class="card">
+
+                    <div class="card-title">
+                        <h3>My List</h3>
+
+                        <a href="browse.html">
+                            Browse Movies →
+                        </a>
+                    </div>
+
+                    <div class="movie-grid" id="watchlistGrid"></div>
+
+                </section>
+
+
+                <!-- CONTINUE WATCHING -->
+
+                <section class="card" style="margin-top:25px;">
+
+                    <div class="card-title">
+                        <h3>Continue Watching</h3>
+                        <a href="browse.html">See All →</a>
+                    </div>
+
+                    <div id="continueWatching"></div>
+
+                </section>
+
+            </div>
+
+
+            <!-- RIGHT COLUMN -->
+
+            <div>
+
+                <!-- SUBSCRIPTION -->
+
+                <section class="card subscription">
+
+                    <div class="card-title">
+                        <h3>Your Subscription</h3>
+                    </div>
+
+                    <div class="plan-name">
+                        Gold
+                    </div>
+
+                    <div class="plan-status">
+                        ● Active
+                    </div>
+
+                    <div class="subscription-info">
+
+                        <div class="sub-box">
+                            <span>Billing</span>
+                            <strong>Monthly</strong>
+                        </div>
+
+                        <div class="sub-box">
+                            <span>Price</span>
+                            <strong>₦4,500</strong>
+                        </div>
+
+                        <div class="sub-box">
+                            <span>Next Billing</span>
+                            <strong id="nextBilling">
+                                —
+                            </strong>
+                        </div>
+
+                        <div class="sub-box">
+                            <span>Quality</span>
+                            <strong>4K UHD</strong>
+                        </div>
+
+                    </div>
+
+                    <button class="upgrade-btn"
+                            onclick="goToServices()">
+                        Manage Subscription
+                    </button>
+
+                </section>
+
+
+                <!-- ACCOUNT -->
+
+                <section class="card" style="margin-top:25px;">
+
+                    <div class="card-title">
+                        <h3>Account</h3>
+                    </div>
+
+                    <div class="account-actions">
+
+                        <button class="account-action"
+                                onclick="openEditModal()">
+                            👤 Personal Information
+                        </button>
+
+                        <button class="account-action"
+                                onclick="showToast('Password settings will be connected to the backend.')">
+                            🔐 Password & Security
+                        </button>
+
+                        <button class="account-action"
+                                onclick="showToast('Notification settings will be available soon.')">
+                            🔔 Notifications
+                        </button>
+
+                        <button class="account-action"
+                                onclick="showToast('Privacy settings will be available soon.')">
+                            🛡️ Privacy
+                        </button>
+
+                        <button class="account-action logout"
+                                onclick="logout()">
+                            🚪 Sign Out
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ================= EDIT PROFILE MODAL ================= -->
+
+    <div class="modal" id="editModal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <h2>Edit Profile</h2>
+
+                <button class="close-modal"
+                        onclick="closeEditModal()">
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="profileForm">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="editName"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Email Address</label>
+
+                    <input
+                        type="email"
+                        id="editEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label>Profile Initial</label>
+
+                    <input
+                        type="text"
+                        id="editInitial"
+                        maxlength="1"
+                        placeholder="A"
+                    >
+                </div>
+
+
+                <button class="save-btn" type="submit">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div class="toast" id="toast">
+        Saved successfully.
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+        <p>
+            © <span id="year"></span>
+            <strong>CineGold</strong>.
+            All rights reserved.
+        </p>
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* ================= DATA ================= */
+
+        const defaultMovies = [
+
+            {
+                id: 1,
+                title: "Shadow Protocol",
+                type: "Movie",
+                genre: "Action",
+                year: 2025,
+                rating: 8.7,
+                duration: "2h 08m",
+                poster: "https://picsum.photos/seed/shadowprotocol/500/750"
+            },
+
+            {
+                id: 2,
+                title: "Golden Strike",
+                type: "Movie",
+                genre: "Action",
+                year: 2025,
+                rating: 8.5,
+                duration: "1h 55m",
+                poster: "https://picsum.photos/seed/goldenstrike/500/750"
+            },
+
+            {
+                id: 3,
+                title: "Night Hunter",
+                type: "Movie",
+                genre: "Thriller",
+                year: 2024,
+                rating: 8.2,
+                duration: "2h 01m",
+                poster: "https://picsum.photos/seed/nighthunter/500/750"
+            },
+
+            {
+                id: 4,
+                title: "Last Kingdom",
+                type: "Series",
+                genre: "Drama",
+                year: 2025,
+                rating: 9.0,
+                duration: "3 Seasons",
+                poster: "https://picsum.photos/seed/lastkingdom/500/750"
+            },
+
+            {
+                id: 5,
+                title: "Dark City",
+                type: "Series",
+                genre: "Crime",
+                year: 2024,
+                rating: 8.8,
+                duration: "2 Seasons",
+                poster: "https://picsum.photos/seed/darkcity/500/750"
+            },
+
+            {
+                id: 6,
+                title: "The Warrior",
+                type: "Movie",
+                genre: "Action",
+                year: 2025,
+                rating: 8.1,
+                duration: "2h 12m",
+                poster: "https://picsum.photos/seed/thewarrior/500/750"
+            }
+
+        ];
+
+
+        /* ================= YEAR ================= */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* ================= MOBILE MENU ================= */
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+        menuBtn.addEventListener("click", function() {
+
+            navLinks.classList.toggle("show");
+
+            menuBtn.textContent =
+                navLinks.classList.contains("show")
+                ? "×"
+                : "☰";
+
+        });
+
+
+        /* ================= SESSION / AUTH GUARD ================= */
+
+        function getSession() {
+
+            const raw =
+                localStorage.getItem("cinegold_session") ||
+                sessionStorage.getItem("cinegold_session");
+
+            if (!raw) return null;
+
+            try {
+                const session = JSON.parse(raw);
+                return session && session.loggedIn ? session : null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+
+        const activeSession = getSession();
+
+        if (!activeSession) {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        function getCurrentUser() {
+
+            /*
+                The logged-in user now comes from the real
+                CineGold session (set at login by the Node.js
+                backend), not from local demo data.
+            */
+
+            if (activeSession) {
+                return {
+                    name: activeSession.name,
+                    email: activeSession.email
+                };
+            }
+
+            return {
+                name: "CineGold User",
+                email: "user@cinegold.com"
+            };
+        }
+
+
+        let currentUser = getCurrentUser();
+
+
+        /* ================= PROFILE ================= */
+
+        function displayProfile() {
+
+            const name =
+                currentUser.name || "CineGold User";
+
+            const email =
+                currentUser.email || "user@cinegold.com";
+
+            const initial =
+                name.charAt(0).toUpperCase();
+
+
+            document.getElementById("profileName")
+                .textContent = name;
+
+            document.getElementById("profileEmail")
+                .textContent = email;
+
+            document.getElementById("avatar")
+                .textContent = initial;
+
+            document.getElementById("navAvatar")
+                .textContent = initial;
+
+        }
+
+
+        displayProfile();
+
+
+        /* ================= MOVIES ================= */
+
+        function getMovies() {
+
+            const stored =
+                localStorage.getItem("cinegold_movies");
+
+            if (stored) {
+
+                try {
+
+                    return JSON.parse(stored);
+
+                } catch(error) {
+
+                    return defaultMovies;
+
+                }
+
+            }
+
+            return defaultMovies;
+        }
+
+
+        /* ================= WATCHLIST ================= */
+
+        function getWatchlist() {
+
+            return JSON.parse(
+                localStorage.getItem("cinegold_watchlist")
+            ) || [];
+
+        }
+
+
+        function displayWatchlist() {
+
+            const grid =
+                document.getElementById("watchlistGrid");
+
+            const watchlist =
+                getWatchlist();
+
+            const movies =
+                getMovies();
+
+
+            if (!watchlist.length) {
+
+                grid.innerHTML = `
+
+                    <div class="empty-state"
+                         style="grid-column:1/-1;">
+
+                        <div class="empty-state-icon">
+                            🎬
+                        </div>
+
+                        <p>
+                            Your watchlist is empty.
+                        </p>
+
+                        <a href="browse.html">
+                            Find Something to Watch
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            const selectedMovies =
+                movies.filter(movie =>
+                    watchlist.includes(String(movie.id)) ||
+                    watchlist.includes(Number(movie.id))
+                );
+
+
+            if (!selectedMovies.length) {
+
+                grid.innerHTML = `
+
+                    <div class="empty-state"
+                         style="grid-column:1/-1;">
+
+                        <div class="empty-state-icon">
+                            🎬
+                        </div>
+
+                        <p>
+                            No saved titles found.
+                        </p>
+
+                        <a href="browse.html">
+                            Browse CineGold
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            grid.innerHTML =
+                selectedMovies.map(movie => `
+
+                    <div class="movie-card">
+
+                        <button
+                            class="remove-watchlist"
+                            onclick="removeFromWatchlist(${movie.id})">
+                            ×
+                        </button>
+
+                        <a href="movie.html?id=${movie.id}">
+
+                            <img
+                                class="movie-poster"
+                                src="${movie.poster}"
+                                alt="${movie.title}"
+                                onerror="this.src='https://picsum.photos/500/750'"
+                            >
+
+                            <div class="movie-details">
+
+                                <h4>
+                                    ${movie.title}
+                                </h4>
+
+                                <p>
+                                    ${movie.year}
+                                    •
+                                    ⭐ ${movie.rating}
+                                </p>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                `).join("");
+
+        }
+
+
+        /* ================= REMOVE ================= */
+
+        function removeFromWatchlist(id) {
+
+            let watchlist =
+                getWatchlist();
+
+            watchlist =
+                watchlist.filter(item =>
+                    String(item) !== String(id)
+                );
+
+            localStorage.setItem(
+                "cinegold_watchlist",
+                JSON.stringify(watchlist)
+            );
+
+            displayWatchlist();
+
+            showToast("Removed from My List.");
+
+        }
+
+
+        displayWatchlist();
+
+
+        /* ================= CONTINUE WATCHING ================= */
+
+        function displayContinueWatching() {
+
+            const container =
+                document.getElementById("continueWatching");
+
+            const movies =
+                getMovies();
+
+
+            const continueMovies =
+                movies.slice(0, 3);
+
+
+            container.innerHTML =
+                continueMovies.map(
+                    (movie, index) => {
+
+                        const progress =
+                            [62, 38, 81][index] || 50;
+
+                        return `
+
+                            <div class="continue-item">
+
+                                <img
+                                    class="continue-poster"
+                                    src="${movie.poster}"
+                                    alt="${movie.title}"
+                                    onerror="this.src='https://picsum.photos/500/750'"
+                                >
+
+                                <div class="continue-info">
+
+                                    <h4>
+                                        ${movie.title}
+                                    </h4>
+
+                                    <p>
+                                        ${movie.type}
+                                        •
+                                        ${movie.genre}
+                                    </p>
+
+                                    <div class="progress">
+                                        <span style="width:${progress}%"></span>
+                                    </div>
+
+                                    <small>
+                                        ${progress}% watched
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                ).join("");
+
+        }
+
+
+        displayContinueWatching();
+
+
+        /* ================= EDIT MODAL ================= */
+
+        function openEditModal() {
+
+            document.getElementById("editName").value =
+                currentUser.name || "";
+
+            document.getElementById("editEmail").value =
+                currentUser.email || "";
+
+            document.getElementById("editInitial").value =
+                (currentUser.name || "U")
+                .charAt(0)
+                .toUpperCase();
+
+            document
+                .getElementById("editModal")
+                .classList.add("show");
+
+        }
+
+
+        function closeEditModal() {
+
+            document
+                .getElementById("editModal")
+                .classList.remove("show");
+
+        }
+
+
+        /* ================= SAVE PROFILE ================= */
+
+        document
+            .getElementById("profileForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document
+                    .getElementById("editName")
+                    .value.trim();
+
+                const email =
+                    document
+                    .getElementById("editEmail")
+                    .value.trim();
+
+                const initial =
+                    document
+                    .getElementById("editInitial")
+                    .value
+                    .trim()
+                    .toUpperCase();
+
+
+                currentUser.name = name;
+
+                currentUser.email = email;
+
+                currentUser.initial =
+                    initial || name.charAt(0).toUpperCase();
+
+
+                /*
+                    Update the active session so the new name/email
+                    stick around this session. There is no backend
+                    "update profile" endpoint yet, so this does not
+                    persist across a fresh login — only the signup/
+                    login/admin-login endpoints are wired up so far.
+                */
+
+                if (activeSession) {
+
+                    activeSession.name = currentUser.name;
+                    activeSession.email = currentUser.email;
+
+                    const storage =
+                        localStorage.getItem("cinegold_session")
+                            ? localStorage
+                            : sessionStorage;
+
+                    storage.setItem(
+                        "cinegold_session",
+                        JSON.stringify(activeSession)
+                    );
+
+                }
+
+
+                displayProfile();
+
+                closeEditModal();
+
+                showToast("Profile updated successfully.");
+
+            });
+
+
+        /* ================= SUBSCRIPTION DATE ================= */
+
+        function calculateNextBilling() {
+
+            const date =
+                new Date();
+
+            date.setMonth(
+                date.getMonth() + 1
+            );
+
+            return date.toLocaleDateString(
+                "en-NG",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        document.getElementById("nextBilling")
+            .textContent =
+            calculateNextBilling();
+
+
+        /* ================= TOAST ================= */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            toast.textContent = message;
+
+            toast.classList.add("show");
+
+
+            setTimeout(function() {
+
+                toast.classList.remove("show");
+
+            }, 2500);
+
+        }
+
+
+        /* ================= NAVIGATION ================= */
+
+        function goToBrowse() {
+
+            window.location.href =
+                "browse.html";
+
+        }
+
+
+        function goToServices() {
+
+            window.location.href =
+                "services.html";
+
+        }
+
+
+        /* ================= LOGOUT ================= */
+
+        function logout() {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to sign out?"
+                );
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            localStorage.removeItem(
+                "cinegold_session"
+            );
+
+            sessionStorage.removeItem(
+                "cinegold_session"
+            );
+
+
+            showToast("Signed out successfully.");
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "login.html";
+
+            }, 800);
+
+        }
+
+
+        /* ================= CLOSE MODAL ================= */
+
+        document
+            .getElementById("editModal")
+            .addEventListener("click", function(event) {
+
+                if (event.target === this) {
+
+                    closeEditModal();
+
+                }
+
+            });
+
+    </script>
+
+</body>
+</html> 

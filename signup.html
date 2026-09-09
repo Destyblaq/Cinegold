@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | CineGold</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #070707;
+            --black-light: #111111;
+            --gold: #D4AF37;
+            --yellow: #FFD21F;
+            --white: #FFFFFF;
+            --gray: #A5A5A5;
+            --border: #2B2B2B;
+            --danger: #ff4d4d;
+            --success: #22C55E;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                linear-gradient(
+                    rgba(7,7,7,0.78),
+                    rgba(7,7,7,0.96)
+                ),
+                radial-gradient(
+                    circle at top right,
+                    rgba(212,175,55,0.18),
+                    transparent 35%
+                ),
+                var(--black);
+
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            height: 75px;
+            width: 100%;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: rgba(7,7,7,0.88);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--white);
+
+            font-size: 27px;
+            font-weight: 900;
+
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-login {
+            color: var(--white);
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            padding: 10px 17px;
+
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .nav-signup {
+            color: var(--black);
+            background: linear-gradient(
+                135deg,
+                var(--yellow),
+                var(--gold)
+            );
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .menu-btn {
+            display: none;
+
+            border: none;
+            background: transparent;
+
+            color: var(--white);
+
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           SIGNUP PAGE
+        ========================== */
+
+        .signup-page {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 110px 20px 50px;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .signup-card {
+            background: rgba(17,17,17,0.96);
+
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 25px 80px rgba(0,0,0,0.55);
+        }
+
+
+        /* =========================
+           LOGO
+        ========================== */
+
+        .signup-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .signup-logo h1 {
+            font-size: 35px;
+            font-weight: 900;
+        }
+
+        .signup-logo h1 span {
+            color: var(--gold);
+        }
+
+        .signup-logo p {
+            margin-top: 8px;
+
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .signup-heading {
+            margin-bottom: 24px;
+        }
+
+        .signup-heading h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .signup-heading p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           MESSAGE
+        ========================== */
+
+        .message {
+            display: none;
+
+            padding: 12px 14px;
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+
+            background: rgba(255,77,77,0.10);
+
+            border: 1px solid rgba(255,77,77,0.35);
+
+            color: #ff8c8c;
+        }
+
+        .message.success {
+            display: block;
+
+            background: rgba(34,197,94,0.10);
+
+            border: 1px solid rgba(34,197,94,0.35);
+
+            color: #72e6a0;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            width: 100%;
+            height: 50px;
+
+            padding: 0 46px 0 15px;
+
+            background: #0b0b0b;
+            color: var(--white);
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper select:focus {
+            border-color: var(--gold);
+
+            box-shadow:
+                0 0 0 3px rgba(212,175,55,0.10);
+        }
+
+        .input-icon {
+            position: absolute;
+
+            right: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: var(--gray);
+
+            font-size: 17px;
+
+            pointer-events: none;
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 14px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: none;
+
+            color: var(--gray);
+
+            cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        .password-toggle:hover {
+            color: var(--yellow);
+        }
+
+
+        /* =========================
+           PASSWORD STRENGTH
+        ========================== */
+
+        .password-strength {
+            margin-top: 8px;
+        }
+
+        .strength-bar {
+            width: 100%;
+            height: 4px;
+
+            background: #252525;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            width: 0%;
+            height: 100%;
+
+            transition: 0.3s;
+        }
+
+        .strength-text {
+            display: block;
+
+            margin-top: 5px;
+
+            font-size: 11px;
+            color: var(--gray);
+        }
+
+
+        /* =========================
+           TERMS
+        ========================== */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+
+            margin: 20px 0;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: var(--yellow);
+        }
+
+        .terms label {
+            color: var(--gray);
+
+            font-size: 12px;
+
+            line-height: 1.5;
+
+            cursor: pointer;
+        }
+
+        .terms a {
+            color: var(--yellow);
+            text-decoration: none;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           SIGNUP BUTTON
+        ========================== */
+
+        .signup-btn {
+            width: 100%;
+            height: 52px;
+
+            border: none;
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--yellow),
+                    var(--gold)
+                );
+
+            color: var(--black);
+
+            font-size: 15px;
+            font-weight: 900;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(212,175,55,0.20);
+        }
+
+        .signup-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================== */
+
+        .login-text {
+            text-align: center;
+
+            margin-top: 24px;
+
+            color: var(--gray);
+
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: var(--yellow);
+
+            text-decoration: none;
+
+            font-weight: 800;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            border-top: 1px solid var(--border);
+
+            padding: 25px 6%;
+
+            text-align: center;
+
+            color: var(--gray);
+
+            font-size: 13px;
+        }
+
+        .footer span {
+            color: var(--gold);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            .nav-links,
+            .nav-actions {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar.mobile-open {
+                height: auto;
+
+                min-height: 75px;
+
+                flex-wrap: wrap;
+
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .navbar.mobile-open .nav-links {
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                width: 100%;
+
+                gap: 18px;
+
+                padding: 25px 0 10px;
+            }
+
+            .navbar.mobile-open .nav-actions {
+                display: flex;
+
+                width: 100%;
+
+                padding-top: 10px;
+            }
+
+            .navbar.mobile-open .nav-login,
+            .navbar.mobile-open .nav-signup {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+
+        @media (max-width: 520px) {
+
+            .signup-page {
+                padding: 100px 14px 35px;
+            }
+
+            .signup-card {
+                padding: 28px 20px;
+                border-radius: 14px;
+            }
+
+            .signup-logo h1 {
+                font-size: 30px;
+            }
+
+            .signup-heading h2 {
+                font-size: 22px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar" id="navbar">
+
+        <a href="index.html" class="logo">
+            Cine<span>Gold</span>
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="browse.html">Movies</a>
+
+            <a href="browse.html?genre=Series">Series</a>
+
+            <a href="browse.html?trending=true">
+                Trending
+            </a>
+
+            <a href="services.html">
+                Services
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <a href="login.html" class="nav-login">
+                Login
+            </a>
+
+            <a href="signup.html" class="nav-signup">
+                Sign Up
+            </a>
+
+        </div>
+
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
+
+    </header>
+
+
+
+    <!-- =========================
+         SIGNUP PAGE
+    ========================== -->
+
+    <main class="signup-page">
+
+        <div class="signup-container">
+
+            <div class="signup-card">
+
+
+                <!-- LOGO -->
+
+                <div class="signup-logo">
+
+                    <h1>
+                        Cine<span>Gold</span>
+                    </h1>
+
+                    <p>
+                        Your entertainment. Your world.
+                    </p>
+
+                </div>
+
+
+
+                <!-- HEADING -->
+
+                <div class="signup-heading">
+
+                    <h2>
+                        Create Your Account
+                    </h2>
+
+                    <p>
+                        Join CineGold and start enjoying
+                        your favorite movies and series.
+                    </p>
+
+                </div>
+
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    class="message"
+                    id="message"
+                ></div>
+
+
+
+                <!-- FORM -->
+
+                <form id="signupForm">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+
+                        <div class="password-strength">
+
+                            <div class="strength-bar">
+
+                                <div
+                                    class="strength-fill"
+                                    id="strengthFill"
+                                ></div>
+
+                            </div>
+
+                            <span
+                                class="strength-text"
+                                id="strengthText"
+                            >
+                                Password strength
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- CONFIRM PASSWORD -->
+
+                    <div class="form-group">
+
+                        <label for="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirm your password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="confirmPasswordToggle"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TERMS -->
+
+                    <div class="terms">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            required
+                        >
+
+                        <label for="terms">
+
+                            I agree to the
+                            <a href="#">
+                                Terms of Service
+                            </a>
+                            and
+                            <a href="#">
+                                Privacy Policy
+                            </a>.
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- SIGN UP -->
+
+                    <button
+                        type="submit"
+                        class="signup-btn"
+                        id="signupBtn"
+                    >
+                        Create CineGold Account
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- LOGIN -->
+
+                <p class="login-text">
+
+                    Already have an account?
+
+                    <a href="login.html">
+                        Login here
+                    </a>
+
+                </p>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        ©
+        <span id="year"></span>
+        CineGold.
+        All rights reserved.
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+
+        /* =========================
+           ELEMENTS
+        ========================== */
+
+        const signupForm =
+            document.getElementById("signupForm");
+
+        const nameInput =
+            document.getElementById("name");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const confirmPasswordInput =
+            document.getElementById("confirmPassword");
+
+        const termsInput =
+            document.getElementById("terms");
+
+        const signupBtn =
+            document.getElementById("signupBtn");
+
+        const message =
+            document.getElementById("message");
+
+        const strengthFill =
+            document.getElementById("strengthFill");
+
+        const strengthText =
+            document.getElementById("strengthText");
+
+        const navbar =
+            document.getElementById("navbar");
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        menuBtn.addEventListener(
+            "click",
+            function () {
+
+                navbar.classList.toggle(
+                    "mobile-open"
+                );
+
+                if (
+                    navbar.classList.contains(
+                        "mobile-open"
+                    )
+                ) {
+
+                    menuBtn.textContent = "✕";
+
+                } else {
+
+                    menuBtn.textContent = "☰";
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================
+           PASSWORD TOGGLE
+        ========================== */
+
+        function setupPasswordToggle(
+            input,
+            button
+        ) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        input.type === "password"
+                    ) {
+
+                        input.type = "text";
+
+                        button.textContent = "🙈";
+
+                    } else {
+
+                        input.type = "password";
+
+                        button.textContent = "👁";
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        setupPasswordToggle(
+            passwordInput,
+            document.getElementById(
+                "passwordToggle"
+            )
+        );
+
+
+        setupPasswordToggle(
+            confirmPasswordInput,
+            document.getElementById(
+                "confirmPasswordToggle"
+            )
+        );
+
+
+
+        /* =========================
+           MESSAGE
+        ========================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            message.textContent = text;
+
+            message.className =
+                "message " + type;
+
+        }
+
+
+        function clearMessage() {
+
+            message.textContent = "";
+
+            message.className = "message";
+
+        }
+
+
+
+        /* =========================
+           EMAIL VALIDATION
+        ========================== */
+
+        function isValidEmail(email) {
+
+            const pattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return pattern.test(email);
+
+        }
+
+
+
+        /* =========================
+           PASSWORD STRENGTH
+        ========================== */
+
+        function checkPasswordStrength(
+            password
+        ) {
+
+            let score = 0;
+
+
+            if (password.length >= 6) {
+                score++;
+            }
+
+            if (password.length >= 10) {
+                score++;
+            }
+
+            if (/[A-Z]/.test(password)) {
+                score++;
+            }
+
+            if (/[0-9]/.test(password)) {
+                score++;
+            }
+
+            if (
+                /[^A-Za-z0-9]/.test(password)
+            ) {
+                score++;
+            }
+
+
+            if (password.length === 0) {
+
+                strengthFill.style.width = "0%";
+
+                strengthText.textContent =
+                    "Password strength";
+
+                return;
+
+            }
+
+
+            if (score <= 1) {
+
+                strengthFill.style.width = "25%";
+
+                strengthText.textContent =
+                    "Weak password";
+
+            }
+
+            else if (score <= 3) {
+
+                strengthFill.style.width = "60%";
+
+                strengthText.textContent =
+                    "Medium password";
+
+            }
+
+            else {
+
+                strengthFill.style.width = "100%";
+
+                strengthText.textContent =
+                    "Strong password";
+
+            }
+
+        }
+
+
+        passwordInput.addEventListener(
+            "input",
+            function () {
+
+                checkPasswordStrength(
+                    passwordInput.value
+                );
+
+            }
+        );
+
+
+
+        /* =========================
+           SIGNUP
+        ========================== */
+
+        signupForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+                clearMessage();
+
+
+                const name =
+                    nameInput.value.trim();
+
+                const email =
+                    emailInput.value
+                        .trim()
+                        .toLowerCase();
+
+                const password =
+                    passwordInput.value;
+
+                const confirmPassword =
+                    confirmPasswordInput.value;
+
+
+
+                /* NAME */
+
+                if (name.length < 2) {
+
+                    showMessage(
+                        "Please enter your full name.",
+                        "error"
+                    );
+
+                    nameInput.focus();
+
+                    return;
+
+                }
+
+
+
+                /* EMAIL */
+
+                if (!isValidEmail(email)) {
+
+                    showMessage(
+                        "Please enter a valid email address.",
+                        "error"
+                    );
+
+                    emailInput.focus();
+
+                    return;
+
+                }
+
+
+
+                /* PASSWORD */
+
+                if (password.length < 6) {
+
+                    showMessage(
+                        "Your password must contain at least 6 characters.",
+                        "error"
+                    );
+
+                    passwordInput.focus();
+
+                    return;
+
+                }
+
+
+
+                /* CONFIRM PASSWORD */
+
+                if (
+                    password !== confirmPassword
+                ) {
+
+                    showMessage(
+                        "Passwords do not match.",
+                        "error"
+                    );
+
+                    confirmPasswordInput.focus();
+
+                    return;
+
+                }
+
+
+
+                /* TERMS */
+
+                if (!termsInput.checked) {
+
+                    showMessage(
+                        "Please accept the Terms of Service and Privacy Policy.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+
+                /* BUTTON LOADING */
+
+                signupBtn.disabled = true;
+
+                signupBtn.textContent =
+                    "Creating account...";
+
+
+
+                /* CREATE ACCOUNT — real request to the CineGold backend */
+
+                fetch("http://localhost:3000/api/signup", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        password: password
+                    })
+
+                })
+
+                    .then(function (response) {
+
+                        return response.json();
+
+                    })
+
+                    .then(function (data) {
+
+                        if (!data.success) {
+
+                            showMessage(
+                                data.message ||
+                                "Could not create your account. Please try again.",
+                                "error"
+                            );
+
+                            signupBtn.disabled = false;
+
+                            signupBtn.textContent =
+                                "Create CineGold Account";
+
+                            return;
+
+                        }
+
+
+                        showMessage(
+                            "Account created successfully! Redirecting to login...",
+                            "success"
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "login.html";
+
+                            },
+                            1200
+                        );
+
+                    })
+
+                    .catch(function (error) {
+
+                        console.error(
+                            "Signup error:",
+                            error
+                        );
+
+                        showMessage(
+                            "Could not connect to the server. Please make sure the backend is running.",
+                            "error"
+                        );
+
+                        signupBtn.disabled = false;
+
+                        signupBtn.textContent =
+                            "Create CineGold Account";
+
+                    });
+
+            }
+        );
+
+
+    </script>
+
+</body>
+</html>

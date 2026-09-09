@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CineGold — Services & Plans</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #070707;
+            --dark: #111111;
+            --dark-2: #181818;
+            --gold: #D4AF37;
+            --yellow: #FFD21F;
+            --yellow-light: #FFE66D;
+            --white: #FFFFFF;
+            --gray: #A5A5A5;
+            --light-gray: #D8D8D8;
+            --border: #2B2B2B;
+            --green: #22C55E;
+            --red: #EF4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            width: 100%;
+            height: 72px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: rgba(7, 7, 7, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            color: var(--yellow);
+            font-size: 26px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--yellow);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .login-btn {
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .signup-btn {
+            background: var(--yellow);
+            color: var(--black);
+            padding: 9px 17px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 620px;
+            padding: 145px 5% 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(212, 175, 55, 0.18),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    180deg,
+                    #111111,
+                    #070707
+                );
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 7px 15px;
+            margin-bottom: 20px;
+
+            border: 1px solid rgba(255, 210, 31, 0.35);
+            border-radius: 30px;
+
+            color: var(--yellow);
+            background: rgba(255, 210, 31, 0.08);
+
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 76px);
+            line-height: 1.05;
+            margin-bottom: 22px;
+            letter-spacing: -3px;
+        }
+
+        .hero h1 span {
+            color: var(--yellow);
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: auto;
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .hero-actions {
+            margin-top: 30px;
+
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 13px 24px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            background: var(--yellow);
+            color: var(--black);
+            border: 1px solid var(--yellow);
+        }
+
+        .primary-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--border);
+        }
+
+        .secondary-btn:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            max-width: 1250px;
+            margin: auto;
+            padding: 80px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-header span {
+            color: var(--yellow);
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-header h2 {
+            margin-top: 8px;
+            font-size: 36px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 650px;
+            margin: 10px auto 0;
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            padding: 25px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            border-radius: 12px;
+            background: rgba(255, 210, 31, 0.1);
+
+            font-size: 23px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        /* ================= PLANS ================= */
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+
+        .plan {
+            position: relative;
+
+            padding: 30px;
+
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .plan.popular {
+            border: 2px solid var(--yellow);
+            transform: translateY(-10px);
+        }
+
+        .popular-label {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            padding: 5px 14px;
+
+            background: var(--yellow);
+            color: var(--black);
+
+            border-radius: 20px;
+
+            font-size: 11px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .plan-name {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .plan-description {
+            color: var(--gray);
+            font-size: 13px;
+            min-height: 42px;
+        }
+
+        .price {
+            margin: 25px 0;
+        }
+
+        .price strong {
+            font-size: 40px;
+            color: var(--yellow);
+        }
+
+        .price span {
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 25px;
+            flex: 1;
+        }
+
+        .plan-features li {
+            display: flex;
+            gap: 9px;
+            margin-bottom: 13px;
+            color: var(--light-gray);
+            font-size: 13px;
+        }
+
+        .check {
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .plan-btn {
+            width: 100%;
+            padding: 13px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+            font-weight: 800;
+
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--border);
+
+            transition: 0.3s;
+        }
+
+        .plan-btn:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .plan.popular .plan-btn {
+            background: var(--yellow);
+            color: var(--black);
+            border-color: var(--yellow);
+        }
+
+        .plan.popular .plan-btn:hover {
+            background: var(--gold);
+        }
+
+        /* ================= COMPARISON ================= */
+
+        .comparison-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .comparison {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            background: var(--dark);
+        }
+
+        .comparison th,
+        .comparison td {
+            padding: 17px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison th {
+            color: var(--yellow);
+            font-size: 14px;
+        }
+
+        .comparison td {
+            color: var(--light-gray);
+            font-size: 13px;
+        }
+
+        .comparison th:first-child,
+        .comparison td:first-child {
+            text-align: left;
+        }
+
+        /* ================= EXPERIENCE ================= */
+
+        .experience {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .experience-image {
+            min-height: 370px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(255, 210, 31, 0.2),
+                    rgba(0, 0, 0, 0.8)
+                ),
+                url("https://picsum.photos/seed/cinegoldcinema/1000/700")
+                center/cover;
+
+            border: 1px solid var(--border);
+        }
+
+        .experience-content h2 {
+            font-size: 38px;
+            line-height: 1.15;
+            margin-bottom: 17px;
+        }
+
+        .experience-content h2 span {
+            color: var(--yellow);
+        }
+
+        .experience-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .experience-list {
+            list-style: none;
+        }
+
+        .experience-list li {
+            margin-bottom: 13px;
+            color: var(--light-gray);
+            font-size: 14px;
+        }
+
+        .experience-list span {
+            color: var(--yellow);
+            margin-right: 8px;
+        }
+
+        /* ================= FAQ ================= */
+
+        .faq {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .faq-item {
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .faq-question {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--white);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 19px;
+
+            text-align: left;
+            cursor: pointer;
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .faq-question span {
+            color: var(--yellow);
+            font-size: 20px;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 19px 19px;
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            max-width: 1150px;
+            margin: 30px auto 80px;
+            padding: 70px 30px;
+
+            text-align: center;
+
+            border: 1px solid rgba(255, 210, 31, 0.25);
+            border-radius: 20px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(255, 210, 31, 0.13),
+                    transparent 60%
+                ),
+                var(--dark);
+        }
+
+        .cta h2 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .cta h2 span {
+            color: var(--yellow);
+        }
+
+        .cta p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .cta .primary-btn {
+            display: inline-block;
+            margin-top: 25px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 5%;
+            background: #050505;
+        }
+
+        .footer-content {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            max-width: 350px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 13px;
+            color: var(--white);
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--gray);
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .footer-column a:hover {
+            color: var(--yellow);
+        }
+
+        .copyright {
+            max-width: 1250px;
+            margin: 35px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 3000;
+
+            padding: 14px 20px;
+
+            background: #1b1b1b;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+
+            color: var(--white);
+            font-size: 13px;
+
+            transform: translateY(100px);
+            opacity: 0;
+
+            transition: 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 1000px) {
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                right: -100%;
+
+                width: 280px;
+                height: calc(100vh - 72px);
+
+                padding: 30px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                background: #101010;
+                border-left: 1px solid var(--border);
+
+                transition: 0.3s;
+            }
+
+            .nav-links.show {
+                right: 0;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .login-btn {
+                display: none;
+            }
+
+            .plans {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: auto;
+            }
+
+            .plan.popular {
+                transform: none;
+            }
+
+            .experience {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .hero {
+                min-height: 570px;
+                padding: 125px 20px 70px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section-header h2 {
+                font-size: 29px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-image {
+                min-height: 270px;
+            }
+
+            .experience-content h2 {
+                font-size: 30px;
+            }
+
+            .cta {
+                margin: 20px;
+                padding: 50px 20px;
+            }
+
+            .cta h2 {
+                font-size: 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .footer-brand {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Cine<span>Gold</span>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="index.html">Home</a>
+
+            <a href="browse.html">Browse</a>
+
+            <a href="browse.html?type=Movie">
+                Movies
+            </a>
+
+            <a href="browse.html?type=Series">
+                Series
+            </a>
+
+            <a href="browse.html?sort=rating">
+                Trending
+            </a>
+
+            <a href="services.html" class="active">
+                Services
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+        </div>
+
+        <div class="nav-actions">
+
+            <a href="login.html" class="login-btn">
+                Login
+            </a>
+
+            <a href="signup.html" class="signup-btn">
+                Sign Up
+            </a>
+
+            <button
+                class="menu-btn"
+                id="menuBtn">
+                ☰
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ✦ PREMIUM ENTERTAINMENT
+            </div>
+
+            <h1>
+                Entertainment
+                <span>Without Limits.</span>
+            </h1>
+
+            <p>
+                Choose the CineGold experience that works for you.
+                Stream movies, series and exclusive entertainment
+                across your favorite devices.
+            </p>
+
+            <div class="hero-actions">
+
+                <a
+                    href="#plans"
+                    class="primary-btn">
+                    View Plans
+                </a>
+
+                <a
+                    href="browse.html"
+                    class="secondary-btn">
+                    Browse Content
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <span>Why CineGold</span>
+
+            <h2>
+                Everything You Need
+            </h2>
+
+            <p>
+                CineGold is designed to make discovering and
+                enjoying entertainment simple.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎬
+                </div>
+
+                <h3>
+                    Huge Library
+                </h3>
+
+                <p>
+                    Discover movies and series across
+                    action, drama, comedy, thriller,
+                    romance and more.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Streaming
+                </h3>
+
+                <p>
+                    Enjoy a smooth viewing experience
+                    with a platform designed for speed.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <h3>
+                    Watch Anywhere
+                </h3>
+
+                <p>
+                    Enjoy CineGold on phones, tablets,
+                    laptops and compatible screens.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⭐
+                </div>
+
+                <h3>
+                    Personalized
+                </h3>
+
+                <p>
+                    Build your watchlist and discover
+                    titles based on your interests.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PLANS ================= -->
+
+    <section
+        class="section"
+        id="plans">
+
+        <div class="section-header">
+
+            <span>Membership</span>
+
+            <h2>
+                Choose Your Plan
+            </h2>
+
+            <p>
+                Start watching with a plan designed
+                around your entertainment needs.
+            </p>
+
+        </div>
+
+
+        <div class="plans">
+
+            <!-- BASIC -->
+
+            <div class="plan">
+
+                <div class="plan-name">
+                    Silver
+                </div>
+
+                <p class="plan-description">
+                    A simple plan for casual viewers.
+                </p>
+
+                <div class="price">
+                    <strong>₦2,500</strong>
+                    <span>/ month</span>
+                </div>
+
+                <ul class="plan-features">
+
+                    <li>
+                        <span class="check">✓</span>
+                        HD streaming
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Movies & series
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        1 device
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        My List
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Standard playback
+                    </li>
+
+                </ul>
+
+                <button
+                    class="plan-btn"
+                    onclick="choosePlan('Silver')">
+
+                    Choose Silver
+
+                </button>
+
+            </div>
+
+
+            <!-- GOLD -->
+
+            <div class="plan popular">
+
+                <div class="popular-label">
+                    MOST POPULAR
+                </div>
+
+                <div class="plan-name">
+                    Gold
+                </div>
+
+                <p class="plan-description">
+                    The complete CineGold experience.
+                </p>
+
+                <div class="price">
+                    <strong>₦4,500</strong>
+                    <span>/ month</span>
+                </div>
+
+                <ul class="plan-features">
+
+                    <li>
+                        <span class="check">✓</span>
+                        Full HD & 4K UHD
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Movies & series
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Up to 4 devices
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Unlimited My List
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Continue Watching
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Premium experience
+                    </li>
+
+                </ul>
+
+                <button
+                    class="plan-btn"
+                    onclick="choosePlan('Gold')">
+
+                    Get Gold
+
+                </button>
+
+            </div>
+
+
+            <!-- FAMILY -->
+
+            <div class="plan">
+
+                <div class="plan-name">
+                    Platinum
+                </div>
+
+                <p class="plan-description">
+                    Premium entertainment for everyone.
+                </p>
+
+                <div class="price">
+                    <strong>₦7,500</strong>
+                    <span>/ month</span>
+                </div>
+
+                <ul class="plan-features">
+
+                    <li>
+                        <span class="check">✓</span>
+                        4K UHD streaming
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Up to 6 devices
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Multiple profiles
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Unlimited watchlist
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Premium playback
+                    </li>
+
+                    <li>
+                        <span class="check">✓</span>
+                        Priority support
+                    </li>
+
+                </ul>
+
+                <button
+                    class="plan-btn"
+                    onclick="choosePlan('Platinum')">
+
+                    Choose Platinum
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COMPARISON ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <span>Compare</span>
+
+            <h2>
+                Plan Comparison
+            </h2>
+
+        </div>
+
+
+        <div class="comparison-wrapper">
+
+            <table class="comparison">
+
+                <thead>
+
+                    <tr>
+                        <th>Feature</th>
+                        <th>Silver</th>
+                        <th>Gold</th>
+                        <th>Platinum</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>HD Streaming</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>4K UHD</td>
+                        <td>—</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Devices</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>6</td>
+                    </tr>
+
+                    <tr>
+                        <td>Multiple Profiles</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>My List</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Continue Watching</td>
+                        <td>—</td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+
+                    <tr>
+                        <td>Priority Support</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>✓</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= EXPERIENCE ================= -->
+
+    <section class="section">
+
+        <div class="experience">
+
+            <div class="experience-image"></div>
+
+            <div class="experience-content">
+
+                <h2>
+                    Your Entertainment.
+                    <span>Your Way.</span>
+                </h2>
+
+                <p>
+                    CineGold gives you control over your
+                    entertainment experience. Discover new
+                    titles, save favorites and continue
+                    watching whenever you're ready.
+                </p>
+
+                <ul class="experience-list">
+
+                    <li>
+                        <span>✓</span>
+                        Personalized movie discovery
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Create your own watchlist
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Continue watching across sessions
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Flexible subscription plans
+                    </li>
+
+                    <li>
+                        <span>✓</span>
+                        Responsive experience on mobile and desktop
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FAQ ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <span>FAQ</span>
+
+            <h2>
+                Frequently Asked Questions
+            </h2>
+
+            <p>
+                Everything you need to know about CineGold.
+            </p>
+
+        </div>
+
+
+        <div class="faq">
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    What is CineGold?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    CineGold is a streaming platform concept
+                    where users can discover and watch movies
+                    and series through a personalized
+                    entertainment experience.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    Can I watch on my phone?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Yes. The CineGold website is designed
+                    to be responsive and work across
+                    smartphones, tablets and computers.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    Can I cancel my subscription?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Yes. Subscription management will allow
+                    users to manage or cancel their plan.
+                    The actual payment and subscription
+                    system will be connected to the backend.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    Does CineGold support 4K?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    The Gold and Platinum plans are designed
+                    to support 4K UHD content. Actual 4K
+                    playback will depend on the video files,
+                    streaming infrastructure and user's device.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    Will payments work on the website?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    The current frontend uses demo subscription
+                    buttons. Real payments will be implemented
+                    later through the Node.js backend and a
+                    secure payment provider.
+
+                </div>
+
+            </div>
+
+
+            <div class="faq-item">
+
+                <button
+                    class="faq-question"
+                    onclick="toggleFAQ(this)">
+
+                    Can I create multiple profiles?
+
+                    <span>+</span>
+
+                </button>
+
+                <div class="faq-answer">
+
+                    Multiple profiles are planned for the
+                    Platinum membership and will be connected
+                    to the backend account system.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="cta">
+
+        <h2>
+            Ready to Start <span>Watching?</span>
+        </h2>
+
+        <p>
+            Create your CineGold account and start building
+            your personal entertainment library.
+        </p>
+
+        <a
+            href="signup.html"
+            class="primary-btn">
+
+            Create Your Account
+
+        </a>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo">
+                    Cine<span>Gold</span>
+                </a>
+
+                <p>
+                    Premium entertainment designed for
+                    movie and series lovers everywhere.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Explore</h4>
+
+                <a href="browse.html">
+                    Browse
+                </a>
+
+                <a href="browse.html?type=Movie">
+                    Movies
+                </a>
+
+                <a href="browse.html?type=Series">
+                    Series
+                </a>
+
+                <a href="browse.html?sort=rating">
+                    Trending
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>CineGold</h4>
+
+                <a href="services.html">
+                    Services
+                </a>
+
+                <a href="about.html">
+                    About Us
+                </a>
+
+                <a href="profile.html">
+                    My Profile
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Account</h4>
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <a href="signup.html">
+                    Sign Up
+                </a>
+
+                <a href="profile.html">
+                    Account
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © <span id="year"></span>
+            CineGold. All rights reserved.
+
+        </div>
+
+    </footer>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div class="toast" id="toast">
+        Message
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* ================= YEAR ================= */
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* ================= MOBILE MENU ================= */
+
+        const menuBtn =
+            document.getElementById("menuBtn");
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+
+        menuBtn.addEventListener("click", function() {
+
+            navLinks.classList.toggle("show");
+
+            menuBtn.textContent =
+                navLinks.classList.contains("show")
+                ? "×"
+                : "☰";
+
+        });
+
+
+        /* ================= FAQ ================= */
+
+        function toggleFAQ(button) {
+
+            const item =
+                button.parentElement;
+
+            const isOpen =
+                item.classList.contains("open");
+
+
+            document
+                .querySelectorAll(".faq-item")
+                .forEach(function(faq) {
+
+                    faq.classList.remove("open");
+
+                    const icon =
+                        faq.querySelector(".faq-question span");
+
+                    if (icon) {
+                        icon.textContent = "+";
+                    }
+
+                });
+
+
+            if (!isOpen) {
+
+                item.classList.add("open");
+
+                button
+                    .querySelector("span")
+                    .textContent = "−";
+
+            }
+
+        }
+
+
+        /* ================= PLAN SELECTION ================= */
+
+        function choosePlan(plan) {
+
+            /*
+                The current project is frontend-only.
+
+                When Node.js + database + payment integration
+                are added, this function will send the selected
+                plan to the backend.
+            */
+
+
+            localStorage.setItem(
+                "cinegold_selected_plan",
+                plan
+            );
+
+
+            if (plan === "Gold") {
+
+                showToast(
+                    "Gold selected. Create an account to continue."
+                );
+
+            } else {
+
+                showToast(
+                    plan +
+                    " plan selected. Create an account to continue."
+                );
+
+            }
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "signup.html";
+
+            }, 1000);
+
+        }
+
+
+        /* ================= TOAST ================= */
+
+        function showToast(message) {
+
+            const toast =
+                document.getElementById("toast");
+
+            toast.textContent =
+                message;
+
+            toast.classList.add("show");
+
+
+            setTimeout(function() {
+
+                toast.classList.remove("show");
+
+            }, 2500);
+
+        }
+
+    </script>
+
+
+    <!-- =========================
+         SESSION-AWARE NAV
+         Swaps Login/Sign Up for the
+         logged-in user + Logout once a
+         CineGold session exists.
+    ========================== -->
+    <script>
+        (function () {
+
+            function getSession() {
+                const raw =
+                    localStorage.getItem("cinegold_session") ||
+                    sessionStorage.getItem("cinegold_session");
+
+                if (!raw) return null;
+
+                try {
+                    const session = JSON.parse(raw);
+                    return session && session.loggedIn ? session : null;
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function clearSession() {
+                localStorage.removeItem("cinegold_session");
+                sessionStorage.removeItem("cinegold_session");
+            }
+
+            window.cinegoldLogout = function (event) {
+                if (event) event.preventDefault();
+
+                if (confirm("Are you sure you want to logout?")) {
+                    clearSession();
+                    window.location.href = "index.html";
+                }
+            };
+
+            const session = getSession();
+            if (!session) return;
+
+            const navContainers = document.querySelectorAll(
+                "header.navbar, nav.navbar, .mobile-menu, #mobileMenu"
+            );
+
+            navContainers.forEach(function (container) {
+
+                const loginLink = container.querySelector('a[href="login.html"]');
+                const signupLink = container.querySelector('a[href="signup.html"]');
+
+                if (!loginLink) return;
+
+                const firstName =
+                    (session.name || "there").trim().split(" ")[0];
+
+                const profileLink = document.createElement("a");
+                profileLink.href = "profile.html";
+                profileLink.className = loginLink.className;
+                profileLink.textContent = "Hi, " + firstName;
+                if (session.email) profileLink.title = session.email;
+
+                loginLink.replaceWith(profileLink);
+
+                if (signupLink) {
+                    const logoutLink = document.createElement("a");
+                    logoutLink.href = "#";
+                    logoutLink.className = signupLink.className;
+                    logoutLink.textContent = "Logout";
+                    logoutLink.addEventListener("click", window.cinegoldLogout);
+
+                    signupLink.replaceWith(logoutLink);
+                }
+
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

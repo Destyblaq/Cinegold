@@ -1,0 +1,3 @@
+module.exports = {
+    JWT_SECRET: "replace-with-a-long-random-secret"
+};

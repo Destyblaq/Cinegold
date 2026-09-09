@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CineGold Admin Dashboard</title>
+<style>
+:root{--black:#070707;--dark:#111;--dark2:#171717;--dark3:#202020;--gold:#D4AF37;--yellow:#FFD21F;--white:#fff;--gray:#A5A5A5;--border:#2B2B2B;--green:#22C55E;--red:#ef4444;--blue:#3b82f6;--sw:260px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}button,input,select,textarea{font:inherit}button{cursor:pointer}.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sw);background:#0d0d0d;border-right:1px solid var(--border);z-index:1000;display:flex;flex-direction:column;transition:.25s}.sidebar-logo{height:72px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid var(--border)}.logo{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-size:22px;font-weight:900}.logo span{color:var(--yellow)}.logo-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--yellow),var(--gold));color:#070707;display:grid;place-items:center}.sidebar-content{flex:1;overflow:auto;padding:18px 12px}.menu-title{font-size:11px;color:#737373;font-weight:800;letter-spacing:1px;padding:10px 12px;text-transform:uppercase}.nav-item{width:100%;border:0;background:none;color:var(--gray);padding:12px 13px;margin:3px 0;border-radius:10px;text-align:left;display:flex;gap:12px;align-items:center}.nav-item:hover{background:#191919;color:#fff}.nav-item.active{background:var(--yellow);color:#070707;font-weight:800}.nav-icon{width:22px;text-align:center}.sidebar-footer{padding:14px 12px;border-top:1px solid var(--border)}.admin-mini{display:flex;align-items:center;gap:10px;padding:10px;background:#151515;border-radius:10px}.admin-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--yellow),var(--gold));color:#070707;display:grid;place-items:center;font-weight:900}.admin-mini-text{min-width:0}.admin-mini-text strong{display:block;font-size:13px}.admin-mini-text small{color:var(--gray)}.overlay{display:none;position:fixed;inset:0;background:#000a;z-index:999}.main{margin-left:var(--sw);min-height:100vh}.topbar{height:72px;position:sticky;top:0;z-index:900;background:#111f;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 26px}.topbar-left{display:flex;align-items:center;gap:14px}.mobile-menu{display:none;width:40px;height:40px;background:#171717;color:#fff;border:1px solid var(--border);border-radius:9px}.page-heading h1{font-size:20px}.page-heading p{font-size:12px;color:var(--gray);margin-top:3px}.topbar-right{display:flex;gap:12px;align-items:center}.top-search{position:relative;width:250px}.top-search input,.input,.select,.form-group input{width:100%;height:40px;background:var(--dark2);color:#fff;border:1px solid var(--border);border-radius:8px;outline:none;padding:0 12px}.top-search input{padding-left:36px}.top-search span{position:absolute;left:13px;top:10px;color:var(--gray)}.notification{width:40px;height:40px;background:var(--dark2);color:#fff;border:1px solid var(--border);border-radius:9px;position:relative}.dot{position:absolute;right:7px;top:6px;width:7px;height:7px;background:var(--red);border-radius:50%}.content{padding:26px}.page{display:none}.page.active{display:block}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:22px}.stat,.panel,.plan{background:var(--dark);border:1px solid var(--border);border-radius:14px}.stat{padding:19px}.stat-top{display:flex;justify-content:space-between;align-items:center}.stat-label{color:var(--gray);font-size:13px}.stat-icon{width:40px;height:40px;border-radius:10px;background:#24200c;color:var(--yellow);display:grid;place-items:center}.stat-value{font-size:27px;font-weight:900;margin-top:14px}.change{font-size:12px;color:var(--green);margin-top:7px}.grid2{display:grid;grid-template-columns:1.55fr .85fr;gap:20px}.panel{overflow:hidden;margin-bottom:20px}.panel-head{min-height:64px;padding:16px 19px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px}.panel-head h2{font-size:16px}.panel-head p{font-size:12px;color:var(--gray);margin-top:4px}.panel-body{padding:19px}.chart{height:285px;display:flex;align-items:flex-end;gap:13px;padding:15px 5px 4px;overflow:auto}.bar-group{min-width:35px;flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px}.bar{width:100%;max-width:34px;min-height:12px;background:linear-gradient(to top,var(--gold),var(--yellow));border-radius:7px 7px 2px 2px}.bar-label{font-size:10px;color:var(--gray)}.activity-list{display:flex;flex-direction:column;gap:14px}.activity{display:flex;gap:11px;align-items:flex-start}.activity-icon{width:34px;height:34px;border-radius:9px;background:#25200b;color:var(--yellow);display:grid;place-items:center;flex-shrink:0}.activity-text strong{font-size:13px}.activity-text p{font-size:11px;color:var(--gray);margin-top:3px}.toolbar{padding:16px 19px;border-bottom:1px solid var(--border);display:flex;gap:9px;flex-wrap:wrap}.toolbar .input{width:230px}.btn{min-height:40px;padding:0 14px;border-radius:8px;border:1px solid var(--border);font-size:13px;font-weight:700}.primary{background:var(--yellow);color:#070707;border-color:var(--yellow)}.secondary{background:var(--dark3);color:#fff}.danger{background:#ef44441a;color:#ff7777;border-color:#ef444440}.small{min-height:34px;padding:0 10px;font-size:11px}.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}table{width:100%;min-width:850px;border-collapse:collapse}th,td{padding:13px 16px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;vertical-align:middle}th{background:#151515;color:var(--gray);font-size:11px;text-transform:uppercase;white-space:nowrap}.movie-cell,.user-cell{display:flex;align-items:center;gap:11px}.poster{width:42px;height:58px;object-fit:cover;border-radius:6px}.movie-info{min-width:0}.movie-info strong{display:block;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.movie-info small{color:var(--gray)}.badge{display:inline-flex;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800}.gold{background:#d4af371f;color:var(--yellow)}.green{background:#22c55e1f;color:var(--green)}.blue{background:#3b82f61f;color:#75a7ff}.red{background:#ef44441f;color:#ff7777}.actions{display:flex;gap:6px}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.plan{padding:22px;position:relative}.plan.featured{border-color:var(--gold)}.popular{position:absolute;right:14px;top:14px;background:var(--yellow);color:#070707;padding:4px 7px;border-radius:5px;font-size:9px;font-weight:900}.plan-name{color:var(--yellow);font-size:17px;font-weight:900}.price{font-size:30px;font-weight:900;margin-top:13px}.price span{font-size:12px;color:var(--gray)}.features{margin:20px 0;display:flex;flex-direction:column;gap:10px;color:var(--gray);font-size:12px}.features div:before{content:"✓";color:var(--green);margin-right:7px}.settings{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:14px 0;border-bottom:1px solid var(--border)}.setting-info strong{font-size:13px}.setting-info p{font-size:11px;color:var(--gray);margin-top:4px}.toggle{width:45px;height:25px;position:relative;flex-shrink:0}.toggle input{opacity:0}.slider{position:absolute;inset:0;background:#343434;border-radius:999px}.slider:before{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;background:white;border-radius:50%;transition:.25s}.toggle input:checked+.slider{background:var(--yellow)}.toggle input:checked+.slider:before{transform:translateX(20px)}.modal{position:fixed;inset:0;background:#000c;display:none;align-items:center;justify-content:center;padding:20px;z-index:2000}.modal.active{display:flex}.modal-box{width:min(680px,100%);max-height:90vh;overflow:auto;background:#111;border:1px solid var(--border);border-radius:16px}.modal-head{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between}.close{width:34px;height:34px;background:#171717;color:#fff;border:1px solid var(--border);border-radius:8px}.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.form-group{display:flex;flex-direction:column;gap:7px}.form-group.full{grid-column:1/-1}.form-group label{font-size:12px;color:var(--gray);font-weight:700}.form-group input,.form-group select,.form-group textarea{width:100%;background:#171717;color:#fff;border:1px solid var(--border);border-radius:8px;outline:none;padding:10px}.form-group input,.form-group select{height:42px;padding:0 12px}.form-group textarea{min-height:110px;resize:vertical}.modal-foot{padding:15px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}.toast-wrap{position:fixed;right:22px;bottom:22px;z-index:3000}.toast{background:#181818;border:1px solid var(--border);border-left:4px solid var(--yellow);border-radius:10px;padding:13px 14px;margin-top:10px;min-width:250px}.toast p{font-size:11px;color:var(--gray);margin-top:3px}.empty{text-align:center;padding:50px 20px;color:var(--gray)}.empty h3{color:#fff;margin-bottom:6px}
+@media(max-width:1200px){:root{--sw:230px}.stats{grid-template-columns:repeat(2,1fr)}.grid2,.settings{grid-template-columns:1fr}.plans{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.overlay.active{display:block}.main{margin-left:0}.mobile-menu{display:block}.top-search{display:none}.content{padding:20px}.plans{grid-template-columns:1fr}}
+@media(max-width:700px){.content{padding:15px}.topbar{height:64px;padding:0 15px}.page-heading h1{font-size:17px}.page-heading p{display:none}.stats{grid-template-columns:1fr 1fr;gap:10px}.stat{padding:15px}.stat-value{font-size:22px}.panel-head,.toolbar,.panel-body{padding:14px}.toolbar .input,.toolbar .select{width:100%}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.modal{padding:10px}}
+@media(max-width:500px){.content{padding:10px}.stats{grid-template-columns:1fr}.stat{display:flex;justify-content:space-between;align-items:center}.stat-value{margin-top:4px}.grid2{gap:10px}.chart{height:230px}.panel-head{align-items:flex-start;flex-direction:column}.modal-foot .btn{flex:1}.toast-wrap{left:10px;right:10px;bottom:10px}.toast{min-width:0}}
+</style>
+</head>
+<body style="visibility:hidden">
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><a class="logo" href="index.html"><div class="logo-icon">CG</div><div>Cine<span>Gold</span></div></a></div>
+  <div class="sidebar-content">
+    <div class="menu-title">Main</div>
+    <button class="nav-item active" data-page="dashboard" onclick="showPage('dashboard')"><span class="nav-icon">⌂</span>Dashboard</button>
+    <button class="nav-item" data-page="movies" onclick="showPage('movies')"><span class="nav-icon">🎬</span>Movies</button>
+    <button class="nav-item" data-page="series" onclick="showPage('series')"><span class="nav-icon">📺</span>Series</button>
+    <button class="nav-item" data-page="users" onclick="showPage('users')"><span class="nav-icon">👥</span>Users</button>
+    <div class="menu-title">Business</div>
+    <button class="nav-item" data-page="subscriptions" onclick="showPage('subscriptions')"><span class="nav-icon">💳</span>Subscriptions</button>
+    <button class="nav-item" data-page="activity" onclick="showPage('activity')"><span class="nav-icon">📊</span>Activity</button>
+    <div class="menu-title">System</div>
+    <button class="nav-item" data-page="notifications" onclick="showPage('notifications')"><span class="nav-icon">🔔</span>Notifications</button>
+    <button class="nav-item" data-page="settings" onclick="showPage('settings')"><span class="nav-icon">⚙</span>Settings</button>
+    <button class="nav-item" onclick="location.href='index.html'"><span class="nav-icon">↗</span>View Website</button>
+  </div>
+  <div class="sidebar-footer"><div class="admin-mini"><div class="admin-avatar" id="sidebarAdminAvatar">A</div><div class="admin-mini-text"><strong id="sidebarAdminName">Administrator</strong><small>Super Admin</small></div></div></div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div class="topbar-left"><button class="mobile-menu" onclick="toggleSidebar()">☰</button><div class="page-heading"><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">Welcome back, Administrator</p></div></div>
+  <div class="topbar-right"><div class="top-search"><span>⌕</span><input id="globalSearch" placeholder="Search..." oninput="globalSearch(this.value)"></div><button class="notification" onclick="showPage('notifications')">🔔<span class="dot"></span></button></div>
+</header>
+<div class="content">
+
+<section class="page active" id="page-dashboard">
+<div class="stats">
+<div class="stat"><div class="stat-top"><span class="stat-label">Total Users</span><div class="stat-icon">👥</div></div><div><div class="stat-value" id="totalUsers">0</div><div class="change">↑ 12.5% this month</div></div></div>
+<div class="stat"><div class="stat-top"><span class="stat-label">Content</span><div class="stat-icon">🎬</div></div><div><div class="stat-value" id="totalContent">0</div><div class="change">↑ New content</div></div></div>
+<div class="stat"><div class="stat-top"><span class="stat-label">Active Plans</span><div class="stat-icon">💳</div></div><div><div class="stat-value">3</div><div class="change">All plans active</div></div></div>
+<div class="stat"><div class="stat-top"><span class="stat-label">Revenue</span><div class="stat-icon">₦</div></div><div><div class="stat-value">₦2.4M</div><div class="change">↑ 18.2% this month</div></div></div>
+</div>
+<div class="grid2">
+<div class="panel"><div class="panel-head"><div><h2>Revenue Overview</h2><p>Monthly subscription revenue</p></div><select class="select"><option>Last 7 months</option><option>Last 12 months</option></select></div><div class="panel-body"><div class="chart">
+<div class="bar-group"><div class="bar" style="height:42%"></div><span class="bar-label">Jan</span></div><div class="bar-group"><div class="bar" style="height:54%"></div><span class="bar-label">Feb</span></div><div class="bar-group"><div class="bar" style="height:48%"></div><span class="bar-label">Mar</span></div><div class="bar-group"><div class="bar" style="height:68%"></div><span class="bar-label">Apr</span></div><div class="bar-group"><div class="bar" style="height:63%"></div><span class="bar-label">May</span></div><div class="bar-group"><div class="bar" style="height:79%"></div><span class="bar-label">Jun</span></div><div class="bar-group"><div class="bar" style="height:91%"></div><span class="bar-label">Jul</span></div>
+</div></div></div>
+<div class="panel"><div class="panel-head"><div><h2>Recent Activity</h2><p>Latest platform actions</p></div><button class="btn secondary small" onclick="showPage('activity')">View All</button></div><div class="panel-body"><div class="activity-list">
+<div class="activity"><div class="activity-icon">+</div><div class="activity-text"><strong>New movie added</strong><p>Shadow Protocol · 5 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">👤</div><div class="activity-text"><strong>New user registered</strong><p>user@example.com · 18 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">$</div><div class="activity-text"><strong>Subscription payment</strong><p>Premium plan · 34 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">★</div><div class="activity-text"><strong>Movie rating received</strong><p>Quantum Horizon · 1 hour ago</p></div></div>
+</div></div></div>
+</div>
+<div class="panel"><div class="panel-head"><div><h2>Latest Content</h2><p>Recently added movies and series</p></div><button class="btn primary small" onclick="showPage('movies')">Manage Content</button></div><div class="table-wrap"><table><thead><tr><th>Title</th><th>Type</th><th>Genre</th><th>Year</th><th>Rating</th><th>Status</th></tr></thead><tbody id="dashboardTable"></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-movies"><div class="panel"><div class="panel-head"><div><h2>Movies Management</h2><p>Add, edit, search and manage movies</p></div><button class="btn primary" onclick="openContentModal('Movie')">+ Add Movie</button></div><div class="toolbar"><input class="input" id="movieSearch" placeholder="Search movies..." oninput="renderMovies()"><select class="select" id="movieGenre" onchange="renderMovies()"><option value="">All Genres</option><option>Action</option><option>Thriller</option><option>Drama</option><option>Sci-Fi</option><option>Comedy</option><option>Romance</option><option>Horror</option><option>Adventure</option></select><select class="select" id="movieSort" onchange="renderMovies()"><option value="newest">Newest</option><option value="oldest">Oldest</option><option value="rating">Rating</option><option value="title">Title</option></select></div><div class="table-wrap"><table><thead><tr><th>Movie</th><th>Genre</th><th>Year</th><th>Rating</th><th>Duration</th><th>Actions</th></tr></thead><tbody id="moviesTable"></tbody></table></div></div></section>
+
+<section class="page" id="page-series"><div class="panel"><div class="panel-head"><div><h2>Series Management</h2><p>Manage CineGold TV series</p></div><button class="btn primary" onclick="openContentModal('Series')">+ Add Series</button></div><div class="toolbar"><input class="input" id="seriesSearch" placeholder="Search series..." oninput="renderSeries()"><select class="select" id="seriesGenre" onchange="renderSeries()"><option value="">All Genres</option><option>Action</option><option>Thriller</option><option>Drama</option><option>Sci-Fi</option><option>Comedy</option><option>Romance</option><option>Horror</option></select></div><div class="table-wrap"><table><thead><tr><th>Series</th><th>Genre</th><th>Year</th><th>Rating</th><th>Episodes</th><th>Actions</th></tr></thead><tbody id="seriesTable"></tbody></table></div></div></section>
+
+<section class="page" id="page-users"><div class="panel"><div class="panel-head"><div><h2>Users</h2><p>Registered CineGold users</p></div></div><div class="toolbar"><input class="input" id="userSearch" placeholder="Search users..." oninput="renderUsers()"><select class="select" id="userPlan" onchange="renderUsers()"><option value="">All Plans</option><option>Free</option><option>Basic</option><option>Premium</option></select></div><div class="table-wrap"><table><thead><tr><th>User</th><th>Email</th><th>Plan</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead><tbody id="usersTable"></tbody></table></div></div></section>
+
+<section class="page" id="page-subscriptions"><div class="plans">
+<div class="plan"><div class="plan-name">Free</div><div class="price">₦0 <span>/ month</span></div><div class="features"><div>Limited movies</div><div>Standard quality</div><div>Ads supported</div><div>One device</div></div><button class="btn secondary" style="width:100%">Manage Plan</button></div>
+<div class="plan"><div class="plan-name">Basic</div><div class="price">₦3,500 <span>/ month</span></div><div class="features"><div>Full movie library</div><div>HD quality</div><div>No ads</div><div>Two devices</div></div><button class="btn secondary" style="width:100%">Manage Plan</button></div>
+<div class="plan featured"><span class="popular">POPULAR</span><div class="plan-name">Premium</div><div class="price">₦6,500 <span>/ month</span></div><div class="features"><div>Full movie library</div><div>4K Ultra HD</div><div>No ads</div><div>Four devices</div><div>Download movies</div></div><button class="btn primary" style="width:100%">Manage Plan</button></div>
+</div></section>
+
+<section class="page" id="page-activity"><div class="panel"><div class="panel-head"><div><h2>Platform Activity</h2><p>Recent actions across CineGold</p></div></div><div class="panel-body"><div class="activity-list">
+<div class="activity"><div class="activity-icon">+</div><div class="activity-text"><strong>New movie added: Shadow Protocol</strong><p>Administrator · 5 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">👤</div><div class="activity-text"><strong>New user registered</strong><p>user@example.com · 18 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">$</div><div class="activity-text"><strong>Premium subscription payment</strong><p>₦6,500 · 34 minutes ago</p></div></div>
+<div class="activity"><div class="activity-icon">✎</div><div class="activity-text"><strong>Movie information updated</strong><p>Quantum Horizon · 45 minutes ago</p></div></div>
+</div></div></div></section>
+
+<section class="page" id="page-notifications"><div class="panel"><div class="panel-head"><div><h2>Notifications</h2><p>Platform notifications</p></div><button class="btn secondary" onclick="toast('Notifications marked as read.')">Mark All Read</button></div><div class="panel-body"><div class="activity-list"><div class="activity"><div class="activity-icon">!</div><div class="activity-text"><strong>New user registrations</strong><p>24 new users joined today.</p></div></div><div class="activity"><div class="activity-icon">$</div><div class="activity-text"><strong>Subscription revenue increased</strong><p>Revenue is up 18.2% compared with last month.</p></div></div><div class="activity"><div class="activity-icon">🎬</div><div class="activity-text"><strong>Content library needs updating</strong><p>Consider adding new movies and series.</p></div></div></div></div></div></section>
+
+<section class="page" id="page-settings"><div class="settings">
+<div class="panel"><div class="panel-head"><div><h2>Platform Settings</h2><p>Configure CineGold behavior</p></div></div><div class="panel-body">
+<div class="setting-row"><div class="setting-info"><strong>Maintenance Mode</strong><p>Temporarily disable the public website.</p></div><label class="toggle"><input type="checkbox" onchange="toast('Maintenance Mode updated.')"><span class="slider"></span></label></div>
+<div class="setting-row"><div class="setting-info"><strong>New User Registration</strong><p>Allow new users to create accounts.</p></div><label class="toggle"><input type="checkbox" checked onchange="toast('Registration setting updated.')"><span class="slider"></span></label></div>
+<div class="setting-row"><div class="setting-info"><strong>Email Notifications</strong><p>Send email notifications to users.</p></div><label class="toggle"><input type="checkbox" checked onchange="toast('Email notification setting updated.')"><span class="slider"></span></label></div>
+<div class="setting-row"><div class="setting-info"><strong>Automatic Content Publishing</strong><p>Automatically publish newly imported content.</p></div><label class="toggle"><input type="checkbox" onchange="toast('Publishing setting updated.')"><span class="slider"></span></label></div>
+<div style="margin-top:18px"><button class="btn primary" onclick="toast('Settings saved successfully.')">Save Settings</button></div>
+</div></div>
+<div class="panel"><div class="panel-head"><div><h2>Administrator</h2><p>Account information</p></div></div><div class="panel-body"><div class="admin-mini"><div class="admin-avatar" id="settingsAdminAvatar">A</div><div class="admin-mini-text"><strong id="settingsAdminName">Administrator</strong><small>Super Admin</small></div></div><div style="margin-top:18px"><div class="setting-row"><div class="setting-info"><strong>Account Email</strong><p id="settingsAdminEmail">admin@cinegold.com</p></div></div><div class="setting-row"><div class="setting-info"><strong>Role</strong><p>Super Administrator</p></div></div><button class="btn danger" style="width:100%" onclick="logout()">Logout</button></div></div></div>
+</div></section>
+
+</div></main>
+
+<div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><h2 id="modalTitle">Add Movie</h2><button class="close" onclick="closeModal()">×</button></div><form id="form" onsubmit="saveContent(event)"><div class="modal-body"><input type="hidden" id="editId"><input type="hidden" id="contentType"><div class="form-grid">
+<div class="form-group full"><label>Title</label><input id="title" required placeholder="Enter title"></div>
+<div class="form-group"><label>Genre</label><select id="genre" required><option value="">Select genre</option><option>Action</option><option>Thriller</option><option>Drama</option><option>Sci-Fi</option><option>Comedy</option><option>Romance</option><option>Horror</option><option>Adventure</option></select></div>
+<div class="form-group"><label>Year</label><input id="year" type="number" min="1900" max="2100" required value="2026"></div>
+<div class="form-group"><label>Rating</label><input id="rating" type="number" min="0" max="10" step=".1" placeholder="8.5"></div>
+<div class="form-group"><label>Duration / Episodes</label><input id="duration" placeholder="2h 10m / 10 Episodes"></div>
+<div class="form-group full"><label>Poster Image URL</label><input id="image" placeholder="https://..."></div>
+<div class="form-group full"><label>Description</label><textarea id="description" placeholder="Write a description..."></textarea></div>
+</div></div><div class="modal-foot"><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button><button type="submit" class="btn primary">Save Content</button></div></form></div></div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* =========================
+   ADMIN AUTH GUARD
+   Runs before anything else renders. Checks for an admin
+   session, then confirms the token with the backend before
+   letting the dashboard show any content.
+========================== */
+let currentAdmin = null;
+
+function getAdminSession() {
+    const raw = sessionStorage.getItem("cinegold_admin_session");
+    if (!raw) return null;
+    try {
+        return JSON.parse(raw);
+    } catch (e) {
+        return null;
+    }
+}
+
+function requireAdminSession() {
+    const session = getAdminSession();
+
+    if (!session || !session.token || session.role !== "admin") {
+        window.location.href = "admin-login.html";
+        return;
+    }
+
+    fetch("http://localhost:3000/api/admin/dashboard", {
+        headers: {
+            "Authorization": "Bearer " + session.token
+        }
+    })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("Session expired or unauthorized");
+            }
+            return response.json();
+        })
+        .then(function () {
+            currentAdmin = session;
+            applyAdminInfo(session);
+        })
+        .catch(function (error) {
+            console.error("Admin auth check failed:", error);
+            sessionStorage.removeItem("cinegold_admin_session");
+            window.location.href = "admin-login.html";
+        });
+}
+
+function applyAdminInfo(session) {
+    const initial = (session.name || "A").trim().charAt(0).toUpperCase();
+
+    sidebarAdminName.textContent = session.name || "Administrator";
+    sidebarAdminAvatar.textContent = initial;
+
+    settingsAdminName.textContent = session.name || "Administrator";
+    settingsAdminAvatar.textContent = initial;
+    settingsAdminEmail.textContent = session.email || "";
+
+    pageSubtitle.textContent = "Welcome back, " + (session.name || "Administrator");
+
+    document.body.style.visibility = "visible";
+}
+
+requireAdminSession();
+
+
+const defaults=[
+{id:1,title:"Shadow Protocol",genre:"Action",type:"Movie",year:2026,rating:8.8,duration:"2h 14m",image:"https://picsum.photos/seed/shadowprotocol/300/450",description:"A covert operative is pulled into a dangerous international conspiracy."},
+{id:2,title:"Midnight Chase",genre:"Thriller",type:"Movie",year:2026,rating:8.5,duration:"1h 58m",image:"https://picsum.photos/seed/midnightchase/300/450",description:"A high-speed pursuit through a city that never sleeps."},
+{id:3,title:"Quantum Horizon",genre:"Sci-Fi",type:"Movie",year:2026,rating:9.1,duration:"2h 22m",image:"https://picsum.photos/seed/quantumhorizon/300/450",description:"Scientists discover a gateway that could change humanity forever."},
+{id:4,title:"The Last Guardian",genre:"Action",type:"Movie",year:2025,rating:8.7,duration:"2h 05m",image:"https://picsum.photos/seed/lastguardian/300/450",description:"A former soldier protects a mysterious young survivor."},
+{id:5,title:"Empire of Shadows",genre:"Drama",type:"Series",year:2026,rating:9,duration:"10 Episodes",image:"https://picsum.photos/seed/empireofshadows/300/450",description:"Power, loyalty and betrayal collide inside a wealthy dynasty."},
+{id:6,title:"Neon City",genre:"Sci-Fi",type:"Series",year:2026,rating:8.6,duration:"8 Episodes",image:"https://picsum.photos/seed/neoncity/300/450",description:"A detective investigates strange crimes in a futuristic city."},
+{id:7,title:"Broken Code",genre:"Thriller",type:"Series",year:2025,rating:8.4,duration:"9 Episodes",image:"https://picsum.photos/seed/brokencode/300/450",description:"A programmer uncovers a secret hidden inside a global system."},
+{id:8,title:"Golden Revenge",genre:"Action",type:"Movie",year:2026,rating:8.2,duration:"2h 01m",image:"https://picsum.photos/seed/goldenrevenge/300/450",description:"A betrayed hero returns to settle an unfinished score."}
+];
+let movies=JSON.parse(localStorage.getItem("cinegold_movies"))||defaults;
+let users=JSON.parse(localStorage.getItem("cinegold_users"))||[];
+const info={dashboard:["Dashboard","Welcome back, Administrator"],movies:["Movies","Manage your movie library"],series:["Series","Manage your series library"],users:["Users","Manage registered users"],subscriptions:["Subscriptions","Manage subscription plans"],activity:["Activity","Monitor platform activity"],notifications:["Notifications","Platform notifications"],settings:["Settings","Configure your CineGold platform"]};
+function save(){localStorage.setItem("cinegold_movies",JSON.stringify(movies))}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav-item").forEach(x=>x.classList.toggle("active",x.dataset.page===p));document.getElementById("pageTitle").textContent=info[p][0];document.getElementById("pageSubtitle").textContent=info[p][1];closeSidebar();if(p==="movies")renderMovies();if(p==="series")renderSeries();if(p==="users")renderUsers()}
+function toggleSidebar(){sidebar.classList.toggle("open");overlay.classList.toggle("active")}function closeSidebar(){sidebar.classList.remove("open");overlay.classList.remove("active")}
+function esc(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function row(x){return `<div class="movie-cell"><img class="poster" src="${esc(x.image)}" onerror="this.src='https://picsum.photos/seed/cinegold/300/450'"><div class="movie-info"><strong>${esc(x.title)}</strong><small>ID: ${x.id}</small></div></div>`}
+function renderDashboard(){totalUsers.textContent=users.length.toLocaleString();totalContent.textContent=movies.length.toLocaleString();dashboardTable.innerHTML=movies.slice().sort((a,b)=>b.year-a.year).slice(0,6).map(x=>`<tr><td>${row(x)}</td><td><span class="badge ${x.type==="Series"?"blue":"gold"}">${esc(x.type)}</span></td><td>${esc(x.genre)}</td><td>${x.year}</td><td>⭐ ${Number(x.rating||0).toFixed(1)}</td><td><span class="badge green">Published</span></td></tr>`).join("")}
+function renderMovies(){let s=(movieSearch.value||"").toLowerCase(),g=movieGenre.value,sort=movieSort.value;let a=movies.filter(x=>x.type==="Movie").filter(x=>!s||x.title.toLowerCase().includes(s)||x.genre.toLowerCase().includes(s)).filter(x=>!g||x.genre===g);if(sort==="newest")a.sort((x,y)=>y.year-x.year);if(sort==="oldest")a.sort((x,y)=>x.year-y.year);if(sort==="rating")a.sort((x,y)=>y.rating-x.rating);if(sort==="title")a.sort((x,y)=>x.title.localeCompare(y.title));moviesTable.innerHTML=a.length?a.map(x=>`<tr><td>${row(x)}</td><td><span class="badge gold">${esc(x.genre)}</span></td><td>${x.year}</td><td>⭐ ${Number(x.rating||0).toFixed(1)}</td><td>${esc(x.duration||"—")}</td><td><div class="actions"><button class="btn secondary small" onclick="edit(${x.id})">Edit</button><button class="btn danger small" onclick="del(${x.id})">Delete</button></div></td></tr>`).join(""):`<tr><td colspan="6"><div class="empty"><h3>No movies found</h3><p>Try another search or add a movie.</p></div></td></tr>`}
+function renderSeries(){let s=(seriesSearch.value||"").toLowerCase(),g=seriesGenre.value;let a=movies.filter(x=>x.type==="Series").filter(x=>!s||x.title.toLowerCase().includes(s)||x.genre.toLowerCase().includes(s)).filter(x=>!g||x.genre===g);seriesTable.innerHTML=a.length?a.map(x=>`<tr><td>${row(x)}</td><td><span class="badge blue">${esc(x.genre)}</span></td><td>${x.year}</td><td>⭐ ${Number(x.rating||0).toFixed(1)}</td><td>${esc(x.duration||"—")}</td><td><div class="actions"><button class="btn secondary small" onclick="edit(${x.id})">Edit</button><button class="btn danger small" onclick="del(${x.id})">Delete</button></div></td></tr>`).join(""):`<tr><td colspan="6"><div class="empty"><h3>No series found</h3><p>Add a series to your library.</p></div></td></tr>`}
+function renderUsers(){let s=(userSearch.value||"").toLowerCase(),p=userPlan.value;let a=users.filter(x=>!s||String(x.name||x.fullName||"").toLowerCase().includes(s)||String(x.email||"").toLowerCase().includes(s)).filter(x=>!p||String(x.plan||"Free")===p);usersTable.innerHTML=a.length?a.map((u,i)=>{let n=u.name||u.fullName||"CineGold User";return `<tr><td><div class="user-cell"><div class="admin-avatar">${esc(n[0].toUpperCase())}</div><strong>${esc(n)}</strong></div></td><td>${esc(u.email||"No email")}</td><td><span class="badge ${u.plan==="Premium"?"gold":u.plan==="Basic"?"blue":"green"}">${esc(u.plan||"Free")}</span></td><td><span class="badge green">${esc(u.status||"Active")}</span></td><td>${esc(u.createdAt||u.joined||"Recently")}</td><td><div class="actions"><button class="btn secondary small" onclick="viewUser(${i})">View</button><button class="btn danger small" onclick="removeUser(${i})">Remove</button></div></td></tr>`}).join(""):`<tr><td colspan="6"><div class="empty"><h3>No users found</h3><p>Registered users will appear here.</p></div></td></tr>`}
+function openContentModal(type,id=""){form.reset();editId.value=id;contentType.value=type;modalTitle.textContent=id?(type==="Movie"?"Edit Movie":"Edit Series"):(type==="Movie"?"Add Movie":"Add Series");if(id){let x=movies.find(m=>Number(m.id)===Number(id));if(x){title.value=x.title;genre.value=x.genre;year.value=x.year;rating.value=x.rating;duration.value=x.duration||"";image.value=x.image||"";description.value=x.description||""}}modal.classList.add("active")}
+function edit(id){let x=movies.find(m=>Number(m.id)===Number(id));if(x)openContentModal(x.type,x.id)}
+function closeModal(){modal.classList.remove("active")}
+function saveContent(e){e.preventDefault();let id=editId.value,type=contentType.value,t=title.value.trim(),g=genre.value,y=Number(year.value),r=Number(rating.value)||0,d=duration.value.trim(),im=image.value.trim()||`https://picsum.photos/seed/${encodeURIComponent(t)}/300/450`,desc=description.value.trim();if(id){let i=movies.findIndex(m=>Number(m.id)===Number(id));movies[i]={...movies[i],title:t,genre:g,type,year:y,rating:r,duration:d,image:im,description:desc};toast("Content updated successfully.")}else{movies.unshift({id:Date.now(),title:t,genre:g,type,year:y,rating:r,duration:d,image:im,description:desc});toast(type+" added successfully.")}save();closeModal();renderDashboard();renderMovies();renderSeries()}
+function del(id){let x=movies.find(m=>Number(m.id)===Number(id));if(!x||!confirm(`Delete "${x.title}"?`))return;movies=movies.filter(m=>Number(m.id)!==Number(id));save();renderDashboard();renderMovies();renderSeries();toast("Content deleted.")}
+function viewUser(i){let u=users[i];if(u)alert(`Name: ${u.name||u.fullName||"CineGold User"}
+Email: ${u.email||"No email"}
+Plan: ${u.plan||"Free"}
+Status: ${u.status||"Active"}`)}
+function removeUser(i){if(!users[i]||!confirm("Remove this user?"))return;users.splice(i,1);localStorage.setItem("cinegold_users",JSON.stringify(users));renderUsers();renderDashboard();toast("User removed.")}
+function globalSearch(v){if(!v.trim())return;let x=movies.find(m=>m.title.toLowerCase().includes(v.toLowerCase()));if(x)showPage(x.type==="Series"?"series":"movies")}
+function toast(msg){let d=document.createElement("div");d.className="toast";d.innerHTML=`<strong>CineGold Admin</strong><p>${esc(msg)}</p>`;toastWrap.appendChild(d);setTimeout(()=>d.remove(),3000)}
+function logout(){if(confirm("Are you sure you want to logout?")){sessionStorage.removeItem("cinegold_admin_session");location.href="admin-login.html"}}
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeSidebar()}});renderDashboard();renderMovies();renderSeries();renderUsers();
+</script>
+</body>
+</html>

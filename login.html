@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | CineGold</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #070707;
+            --black-light: #111111;
+            --gold: #D4AF37;
+            --yellow: #FFD21F;
+            --white: #FFFFFF;
+            --gray: #A5A5A5;
+            --border: #2B2B2B;
+            --danger: #ff4d4d;
+            --success: #22C55E;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                linear-gradient(rgba(7,7,7,0.78), rgba(7,7,7,0.96)),
+                radial-gradient(circle at top right, rgba(212,175,55,0.18), transparent 35%),
+                var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            height: 75px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+            background: rgba(7,7,7,0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+        }
+
+        .logo {
+            text-decoration: none;
+            color: var(--white);
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-login {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 17px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .nav-signup {
+            color: var(--black);
+            background: linear-gradient(135deg, var(--yellow), var(--gold));
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .menu-btn {
+            display: none;
+            border: none;
+            background: transparent;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           LOGIN SECTION
+        ========================== */
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 50px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-card {
+            background: rgba(17,17,17,0.96);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.55);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .login-logo h1 {
+            font-size: 35px;
+            font-weight: 900;
+        }
+
+        .login-logo h1 span {
+            color: var(--gold);
+        }
+
+        .login-logo p {
+            margin-top: 8px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .welcome {
+            margin-bottom: 25px;
+        }
+
+        .welcome h2 {
+            font-size: 25px;
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 52px;
+            padding: 0 48px 0 15px;
+
+            background: #0b0b0b;
+            color: var(--white);
+
+            border: 1px solid var(--border);
+            border-radius: 9px;
+
+            outline: none;
+            font-size: 15px;
+
+            transition: 0.3s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.10);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+
+            border: none;
+            background: none;
+            color: var(--gray);
+
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .password-toggle:hover {
+            color: var(--yellow);
+        }
+
+        /* =========================
+           OPTIONS
+        ========================== */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 23px;
+            gap: 10px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .remember input {
+            accent-color: var(--yellow);
+        }
+
+        .forgot {
+            color: var(--yellow);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .forgot:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           LOGIN BUTTON
+        ========================== */
+
+        .login-btn {
+            width: 100%;
+            height: 52px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: linear-gradient(135deg, var(--yellow), var(--gold));
+            color: var(--black);
+
+            font-size: 15px;
+            font-weight: 900;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212,175,55,0.20);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* =========================
+           DIVIDER
+        ========================== */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .divider span {
+            height: 1px;
+            background: var(--border);
+            flex: 1;
+        }
+
+        .divider p {
+            color: var(--gray);
+            font-size: 12px;
+        }
+
+        /* =========================
+           SOCIAL LOGIN
+        ========================== */
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .social-btn {
+            height: 48px;
+            background: #0b0b0b;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: var(--gold);
+            background: #151515;
+        }
+
+        /* =========================
+           SIGN UP
+        ========================== */
+
+        .signup-text {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: var(--yellow);
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================== */
+
+        .message {
+            display: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(255,77,77,0.10);
+            border: 1px solid rgba(255,77,77,0.35);
+            color: #ff8c8c;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(34,197,94,0.10);
+            border: 1px solid rgba(34,197,94,0.35);
+            color: #72e6a0;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 6%;
+            text-align: center;
+            color: var(--gray);
+            font-size: 13px;
+        }
+
+        .footer span {
+            color: var(--gold);
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 850px) {
+
+            .nav-links,
+            .nav-actions {
+                display: none;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .navbar.mobile-open {
+                height: auto;
+                min-height: 75px;
+                flex-wrap: wrap;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .navbar.mobile-open .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: 18px;
+                padding: 25px 0 10px;
+            }
+
+            .navbar.mobile-open .nav-actions {
+                display: flex;
+                width: 100%;
+                padding-top: 10px;
+            }
+
+            .navbar.mobile-open .nav-login,
+            .navbar.mobile-open .nav-signup {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 520px) {
+
+            .login-page {
+                padding: 105px 14px 35px;
+            }
+
+            .login-card {
+                padding: 28px 20px;
+                border-radius: 14px;
+            }
+
+            .login-logo h1 {
+                font-size: 30px;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+            .social-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .form-options {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header class="navbar" id="navbar">
+
+        <a href="index.html" class="logo">
+            Cine<span>Gold</span>
+        </a>
+
+
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="browse.html">Movies</a>
+            <a href="browse.html?genre=Series">Series</a>
+            <a href="browse.html?trending=true">Trending</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="login.html" class="nav-login">Login</a>
+            <a href="signup.html" class="nav-signup">Sign Up</a>
+        </div>
+
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+            ☰
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         LOGIN PAGE
+    ========================== -->
+
+    <main class="login-page">
+
+        <div class="login-container">
+
+            <div class="login-card">
+
+                <div class="login-logo">
+                    <h1>Cine<span>Gold</span></h1>
+                    <p>Your entertainment. Your world.</p>
+                </div>
+
+                <div class="welcome">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to continue watching your favorite movies and series.</p>
+                </div>
+
+                <div class="message" id="message"></div>
+
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Options -->
+
+                    <div class="form-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember"
+                            >
+
+                            <span>Remember me</span>
+
+                        </label>
+
+                        <a href="#" class="forgot" id="forgotPassword">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login -->
+
+                    <button
+                        type="submit"
+                        class="login-btn"
+                        id="loginBtn"
+                    >
+                        Login to CineGold
+                    </button>
+
+                </form>
+
+
+                <!-- Divider -->
+
+                <div class="divider">
+                    <span></span>
+                    <p>OR</p>
+                    <span></span>
+                </div>
+
+
+                <!-- Social login -->
+
+                <div class="social-buttons">
+
+                    <button
+                        type="button"
+                        class="social-btn"
+                        id="googleLogin"
+                    >
+                        Continue with Google
+                    </button>
+
+                    <button
+                        type="button"
+                        class="social-btn"
+                        id="appleLogin"
+                    >
+                        Continue with Apple
+                    </button>
+
+                </div>
+                <div style="margin-top:25px; text-align:center;">
+                  <a href="admin-login.html"
+                  style="color:#D4AF37; text-decoration:none; font-weight:700;">
+                    🔐 Login as Administrator
+                   </a>
+</div>
+
+
+                <!-- Sign up -->
+
+                <p class="signup-text">
+                    Don't have a CineGold account?
+                    <a href="signup.html">Create an account</a>
+                </p>
+
+            </div>
+
+        </div>
+        
+
+    </main>
+    
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+        © <span id="year"></span> CineGold. All rights reserved.
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           BASIC ELEMENTS
+        ========================== */
+
+        const loginForm = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const passwordToggle = document.getElementById("passwordToggle");
+        const loginBtn = document.getElementById("loginBtn");
+        const message = document.getElementById("message");
+
+        const menuBtn = document.getElementById("menuBtn");
+        const navbar = document.getElementById("navbar");
+
+        document.getElementById("year").textContent =
+            new Date().getFullYear();
+
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        menuBtn.addEventListener("click", function () {
+
+            navbar.classList.toggle("mobile-open");
+
+            if (navbar.classList.contains("mobile-open")) {
+                menuBtn.textContent = "✕";
+            } else {
+                menuBtn.textContent = "☰";
+            }
+
+        });
+
+
+        /* =========================
+           PASSWORD SHOW / HIDE
+        ========================== */
+
+        passwordToggle.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+                passwordToggle.textContent = "🙈";
+
+            } else {
+
+                passwordInput.type = "password";
+                passwordToggle.textContent = "👁";
+
+            }
+
+        });
+
+
+        /* =========================
+           MESSAGE FUNCTION
+        ========================== */
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className = "message " + type;
+
+        }
+
+
+        function clearMessage() {
+
+            message.textContent = "";
+            message.className = "message";
+
+        }
+
+
+        /* =========================
+           EMAIL VALIDATION
+        ========================== */
+
+        function isValidEmail(email) {
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            return emailPattern.test(email);
+
+        }
+
+
+        /* =========================
+           LOGIN
+        ========================== */
+
+        loginForm.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+            clearMessage();
+
+            const email =
+                emailInput.value.trim().toLowerCase();
+
+            const password =
+                passwordInput.value;
+
+            const remember =
+                document.getElementById("remember").checked;
+
+
+            /* Validate email */
+
+            if (!isValidEmail(email)) {
+
+                showMessage(
+                    "Please enter a valid email address.",
+                    "error"
+                );
+
+                emailInput.focus();
+
+                return;
+            }
+
+
+            /* Validate password */
+
+            if (password.length < 6) {
+
+                showMessage(
+                    "Password must contain at least 6 characters.",
+                    "error"
+                );
+
+                passwordInput.focus();
+
+                return;
+            }
+
+
+            /* Loading state */
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = "Signing in...";
+
+
+            /* Real login request to the CineGold backend */
+
+            fetch("http://localhost:3000/api/login", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({ email, password })
+
+            })
+
+                .then(function (response) {
+                    return response.json();
+                })
+
+                .then(function (data) {
+
+                    if (!data.success) {
+
+                        showMessage(
+                            data.message ||
+                            "Incorrect email or password. Please check your details or create an account.",
+                            "error"
+                        );
+
+                        loginBtn.disabled = false;
+                        loginBtn.textContent = "Login to CineGold";
+
+                        return;
+                    }
+
+
+                    /* Save login session (includes the auth token) */
+
+                    const session = {
+
+                        id: data.user.id,
+                        name: data.user.name,
+                        email: data.user.email,
+                        role: data.user.role,
+                        token: data.token,
+                        loggedIn: true,
+                        loginTime: new Date().toISOString()
+
+                    };
+
+
+                    if (remember) {
+
+                        localStorage.setItem(
+                            "cinegold_session",
+                            JSON.stringify(session)
+                        );
+
+                    } else {
+
+                        sessionStorage.setItem(
+                            "cinegold_session",
+                            JSON.stringify(session)
+                        );
+
+                    }
+
+
+                    showMessage(
+                        "Login successful! Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(function () {
+
+                        window.location.href =
+                            "index.html";
+
+                    }, 1000);
+
+                })
+
+                .catch(function (error) {
+
+                    console.error("Login error:", error);
+
+                    showMessage(
+                        "Could not connect to the server. Please make sure the backend is running.",
+                        "error"
+                    );
+
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = "Login to CineGold";
+
+                });
+
+        });
+
+
+        /* =========================
+           FORGOT PASSWORD
+        ========================== */
+
+        document
+            .getElementById("forgotPassword")
+            .addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+                showMessage(
+                    "Password recovery will be connected to the CineGold backend later.",
+                    "error"
+                );
+
+            });
+
+
+        /* =========================
+           GOOGLE LOGIN
+        ========================== */
+
+        document
+            .getElementById("googleLogin")
+            .addEventListener("click", function () {
+
+                showMessage(
+                    "Google authentication will be connected when the backend is added.",
+                    "error"
+                );
+
+            });
+
+
+        /* =========================
+           APPLE LOGIN
+        ========================== */
+
+        document
+            .getElementById("appleLogin")
+            .addEventListener("click", function () {
+
+                showMessage(
+                    "Apple authentication will be connected when the backend is added.",
+                    "error"
+                );
+
+            });
+
+
+        /* =========================
+           CHECK EXISTING SESSION
+        ========================== */
+
+        function checkExistingSession() {
+
+            const localSession =
+                localStorage.getItem("cinegold_session");
+
+            const temporarySession =
+                sessionStorage.getItem("cinegold_session");
+
+
+            if (localSession || temporarySession) {
+
+                const session =
+                    JSON.parse(
+                        localSession || temporarySession
+                    );
+
+
+                if (session && session.loggedIn) {
+
+                    showMessage(
+                        "You are already logged in as " +
+                        session.name + ".",
+                        "success"
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        checkExistingSession();
+
+    </script>
+
+</body> 
+</html

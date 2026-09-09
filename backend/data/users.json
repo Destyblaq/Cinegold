@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1788813517163",
+    "name": "Test User",
+    "email": "test@cinegold.com",
+    "password": "$2b$10$LS3maglWWJNLS2vLHqlR7eyoM9JX8C78LJfYyyAIUeIdwCpVMcvo.",
+    "role": "user",
+    "createdAt": "2026-09-07T20:38:37.164Z"
+  },
+  {
+    "id": "1788816028379",
+    "name": "Admin",
+    "email": "admin@cinegold.com",
+    "password": "$2b$10$mRKO6azs.DaASVdHFPeZsOGGTjBoOOIFdG0tJqy1fifG30vt8X0f6",
+    "role": "admin",
+    "createdAt": "2026-09-07T21:20:28.380Z"
+  },
+  {
+    "id": "1788819969801",
+    "name": "destiny otinyia",
+    "email": "destinyotinyia2005@gmail.com",
+    "password": "$2b$10$eyFtW2FMDaZrg2pu26.lIe00Ocz0hyOBhEFUfGRgVEzvq83S1lAsu",
+    "role": "user",
+    "createdAt": "2026-09-07T22:26:09.802Z"
+  }
+]

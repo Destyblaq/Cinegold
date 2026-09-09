@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse movies and series on CineGold.">
+  <title>Browse Movies & Series | CineGold</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:#070707;
+      color:#fff;
+      min-height:100vh;
+    }
+
+    button,
+    input,
+    select{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 5%;
+      background:rgba(7,7,7,.96);
+      border-bottom:1px solid #2B2B2B;
+      backdrop-filter:blur(12px);
+    }
+
+    .logo{
+      font-size:25px;
+      font-weight:900;
+      letter-spacing:-1px;
+      color:#fff;
+    }
+
+    .logo span{
+      color:#FFD21F;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:28px;
+    }
+
+    .nav-links a{
+      color:#A5A5A5;
+      font-size:14px;
+      font-weight:600;
+      transition:.25s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:#FFD21F;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .search-nav{
+      width:38px;
+      height:38px;
+      border:1px solid #2B2B2B;
+      background:#111;
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:17px;
+    }
+
+    .login-btn{
+      color:#fff;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .signup-btn{
+      background:#FFD21F;
+      color:#070707;
+      padding:10px 17px;
+      border-radius:7px;
+      font-size:14px;
+      font-weight:800;
+    }
+
+    .menu-btn{
+      display:none;
+      background:none;
+      border:0;
+      color:#fff;
+      font-size:25px;
+    }
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    .mobile-menu{
+      display:none;
+      position:fixed;
+      top:72px;
+      left:0;
+      right:0;
+      z-index:999;
+      background:#111;
+      border-bottom:1px solid #2B2B2B;
+      padding:20px 5%;
+    }
+
+    .mobile-menu.open{
+      display:block;
+    }
+
+    .mobile-menu a{
+      display:block;
+      padding:14px 0;
+      color:#fff;
+      border-bottom:1px solid #2B2B2B;
+    }
+
+    /* =========================
+       PAGE HEADER
+    ========================= */
+
+    .page-header{
+      padding:65px 5% 35px;
+      background:
+        radial-gradient(circle at top right,rgba(255,210,31,.12),transparent 35%),
+        #070707;
+    }
+
+    .page-header h1{
+      font-size:42px;
+      margin-bottom:10px;
+    }
+
+    .page-header h1 span{
+      color:#FFD21F;
+    }
+
+    .page-header p{
+      color:#A5A5A5;
+      max-width:650px;
+      line-height:1.7;
+    }
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    .search-section{
+      padding:0 5% 30px;
+    }
+
+    .search-box{
+      max-width:700px;
+      position:relative;
+    }
+
+    .search-box input{
+      width:100%;
+      height:52px;
+      padding:0 55px 0 18px;
+      background:#111;
+      border:1px solid #2B2B2B;
+      color:#fff;
+      border-radius:8px;
+      outline:none;
+    }
+
+    .search-box input:focus{
+      border-color:#D4AF37;
+    }
+
+    .search-box button{
+      position:absolute;
+      right:6px;
+      top:6px;
+      width:40px;
+      height:40px;
+      border:0;
+      border-radius:6px;
+      background:#FFD21F;
+      color:#070707;
+      font-weight:bold;
+    }
+
+    /* =========================
+       FILTERS
+    ========================= */
+
+    .filter-section{
+      padding:0 5% 35px;
+    }
+
+    .filters{
+      display:grid;
+      grid-template-columns:
+        repeat(4,minmax(150px,1fr));
+      gap:12px;
+    }
+
+    .filter-group label{
+      display:block;
+      color:#A5A5A5;
+      font-size:12px;
+      margin-bottom:7px;
+      text-transform:uppercase;
+      font-weight:700;
+    }
+
+    .filter-group select{
+      width:100%;
+      height:45px;
+      padding:0 12px;
+      background:#111;
+      border:1px solid #2B2B2B;
+      border-radius:7px;
+      color:#fff;
+      outline:none;
+    }
+
+    .filter-group select:focus{
+      border-color:#D4AF37;
+    }
+
+    .reset-btn{
+      margin-top:19px;
+      height:45px;
+      padding:0 18px;
+      background:transparent;
+      border:1px solid #D4AF37;
+      border-radius:7px;
+      color:#FFD21F;
+      font-weight:700;
+    }
+
+    .reset-btn:hover{
+      background:#FFD21F;
+      color:#070707;
+    }
+
+    /* =========================
+       RESULTS BAR
+    ========================= */
+
+    .results-bar{
+      padding:0 5% 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    }
+
+    .results-bar h2{
+      font-size:20px;
+    }
+
+    .results-bar span{
+      color:#A5A5A5;
+      font-size:14px;
+    }
+
+    /* =========================
+       MOVIE GRID
+    ========================= */
+
+    .movies-section{
+      padding:0 5% 80px;
+    }
+
+    .movie-grid{
+      display:grid;
+      grid-template-columns:
+        repeat(6,minmax(0,1fr));
+      gap:22px 14px;
+    }
+
+    .movie-card{
+      position:relative;
+      min-width:0;
+      background:#111;
+      border:1px solid #1f1f1f;
+      border-radius:9px;
+      overflow:hidden;
+      transition:.3s ease;
+    }
+
+    .movie-card:hover{
+      transform:translateY(-6px);
+      border-color:#D4AF37;
+      box-shadow:0 15px 35px rgba(0,0,0,.45);
+    }
+
+    .poster{
+      position:relative;
+      aspect-ratio:2/3;
+      overflow:hidden;
+      background:#191919;
+    }
+
+    .poster img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:.4s;
+    }
+
+    .movie-card:hover .poster img{
+      transform:scale(1.05);
+    }
+
+    .rating{
+      position:absolute;
+      top:9px;
+      left:9px;
+      padding:5px 7px;
+      border-radius:5px;
+      background:rgba(0,0,0,.85);
+      color:#FFD21F;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .type-badge{
+      position:absolute;
+      top:9px;
+      right:9px;
+      padding:5px 7px;
+      border-radius:5px;
+      background:#FFD21F;
+      color:#070707;
+      font-size:10px;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .watch-btn{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%) scale(.8);
+      width:48px;
+      height:48px;
+      border:0;
+      border-radius:50%;
+      background:#FFD21F;
+      color:#070707;
+      opacity:0;
+      transition:.25s;
+      font-size:18px;
+    }
+
+    .movie-card:hover .watch-btn{
+      opacity:1;
+      transform:translate(-50%,-50%) scale(1);
+    }
+
+    .movie-info{
+      padding:12px;
+    }
+
+    .movie-title{
+      font-size:15px;
+      font-weight:800;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      margin-bottom:7px;
+    }
+
+    .movie-meta{
+      display:flex;
+      justify-content:space-between;
+      gap:5px;
+      color:#A5A5A5;
+      font-size:11px;
+    }
+
+    .movie-meta .genre{
+      color:#D4AF37;
+    }
+
+    .card-actions{
+      display:flex;
+      gap:7px;
+      margin-top:11px;
+    }
+
+    .view-btn{
+      flex:1;
+      padding:8px 5px;
+      border-radius:5px;
+      background:#FFD21F;
+      color:#070707;
+      text-align:center;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .list-btn{
+      width:34px;
+      border:1px solid #2B2B2B;
+      background:#191919;
+      color:#fff;
+      border-radius:5px;
+    }
+
+    .list-btn.active{
+      color:#FFD21F;
+      border-color:#D4AF37;
+    }
+
+    /* =========================
+       EMPTY STATE
+    ========================= */
+
+    .empty-state{
+      display:none;
+      text-align:center;
+      padding:80px 20px;
+    }
+
+    .empty-state.show{
+      display:block;
+    }
+
+    .empty-icon{
+      font-size:50px;
+      margin-bottom:15px;
+    }
+
+    .empty-state h3{
+      font-size:22px;
+      margin-bottom:8px;
+    }
+
+    .empty-state p{
+      color:#A5A5A5;
+      margin-bottom:20px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      border-top:1px solid #2B2B2B;
+      background:#0b0b0b;
+      padding:45px 5% 25px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr 1fr 1fr;
+      gap:35px;
+      padding-bottom:35px;
+    }
+
+    .footer-brand p{
+      color:#A5A5A5;
+      line-height:1.7;
+      max-width:400px;
+      margin-top:12px;
+      font-size:14px;
+    }
+
+    footer h3{
+      font-size:14px;
+      margin-bottom:15px;
+      color:#fff;
+    }
+
+    footer a{
+      display:block;
+      color:#A5A5A5;
+      font-size:13px;
+      margin-bottom:10px;
+    }
+
+    footer a:hover{
+      color:#FFD21F;
+    }
+
+    .footer-bottom{
+      border-top:1px solid #2B2B2B;
+      padding-top:20px;
+      color:#666;
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast{
+      position:fixed;
+      right:20px;
+      bottom:20px;
+      z-index:3000;
+      background:#111;
+      border:1px solid #D4AF37;
+      color:#fff;
+      padding:13px 18px;
+      border-radius:7px;
+      opacity:0;
+      transform:translateY(20px);
+      pointer-events:none;
+      transition:.3s;
+      font-size:13px;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media(max-width:1200px){
+      .movie-grid{
+        grid-template-columns:
+          repeat(5,minmax(0,1fr));
+      }
+    }
+
+    @media(max-width:950px){
+      .nav-links{
+        display:none;
+      }
+
+      .menu-btn{
+        display:block;
+      }
+
+      .nav-actions .login-btn,
+      .nav-actions .signup-btn{
+        display:none;
+      }
+
+      .filters{
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+      }
+
+      .movie-grid{
+        grid-template-columns:
+          repeat(4,minmax(0,1fr));
+      }
+
+      .footer-grid{
+        grid-template-columns:
+          repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:650px){
+      .navbar{
+        height:64px;
+      }
+
+      .mobile-menu{
+        top:64px;
+      }
+
+      .page-header{
+        padding-top:45px;
+      }
+
+      .page-header h1{
+        font-size:32px;
+      }
+
+      .filters{
+        grid-template-columns:1fr;
+      }
+
+      .movie-grid{
+        grid-template-columns:
+          repeat(3,minmax(0,1fr));
+        gap:15px 9px;
+      }
+
+      .movie-info{
+        padding:9px;
+      }
+
+      .movie-title{
+        font-size:13px;
+      }
+
+      .movie-meta{
+        font-size:9px;
+      }
+
+      .view-btn{
+        font-size:10px;
+      }
+
+      .list-btn{
+        width:30px;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-bottom{
+        flex-direction:column;
+      }
+    }
+
+    @media(max-width:420px){
+      .logo{
+        font-size:21px;
+      }
+
+      .movie-grid{
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+        gap:18px 12px;
+      }
+
+      .page-header h1{
+        font-size:28px;
+      }
+
+      .results-bar{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .search-section,
+      .filter-section,
+      .results-bar,
+      .movies-section{
+        padding-left:4%;
+        padding-right:4%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================= -->
+
+  <header class="navbar">
+
+    <a href="index.html" class="logo">
+      Cine<span>Gold</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="browse.html" class="active">Browse</a>
+      <a href="browse.html?type=Movie">Movies</a>
+      <a href="browse.html?type=Series">Series</a>
+      <a href="browse.html?sort=rating">Trending</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="nav-actions">
+
+      <button
+        class="search-nav"
+        onclick="focusSearch()"
+        aria-label="Search">
+        🔍
+      </button>
+
+      <a href="login.html" class="login-btn">
+        Login
+      </a>
+
+      <a href="signup.html" class="signup-btn">
+        Sign Up
+      </a>
+
+      <button
+        class="menu-btn"
+        onclick="toggleMenu()"
+        aria-label="Menu">
+        ☰
+      </button>
+
+    </div>
+
+  </header>
+
+  <!-- MOBILE MENU -->
+
+  <div class="mobile-menu" id="mobileMenu">
+
+    <a href="index.html">Home</a>
+    <a href="browse.html">Browse</a>
+    <a href="browse.html?type=Movie">Movies</a>
+    <a href="browse.html?type=Series">Series</a>
+    <a href="browse.html?sort=rating">Trending</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
+
+  </div>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <section class="page-header">
+
+    <h1>
+      Browse <span>CineGold</span>
+    </h1>
+
+    <p>
+      Explore thousands of movies and series across action,
+      thriller, science fiction, drama, comedy and more.
+    </p>
+
+  </section>
+
+
+  <!-- =========================
+       SEARCH
+  ========================= -->
+
+  <section class="search-section">
+
+    <div class="search-box">
+
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search movies, series, genres..."
+        autocomplete="off">
+
+      <button onclick="applyFilters()">
+        🔍
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FILTERS
+  ========================= -->
+
+  <section class="filter-section">
+
+    <div class="filters">
+
+      <div class="filter-group">
+
+        <label>Content Type</label>
+
+        <select id="typeFilter">
+          <option value="all">All</option>
+          <option value="Movie">Movies</option>
+          <option value="Series">Series</option>
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>Genre</label>
+
+        <select id="genreFilter">
+
+          <option value="all">
+            All Genres
+          </option>
+
+          <option value="Action">
+            Action
+          </option>
+
+          <option value="Thriller">
+            Thriller
+          </option>
+
+          <option value="Sci-Fi">
+            Sci-Fi
+          </option>
+
+          <option value="Drama">
+            Drama
+          </option>
+
+          <option value="Comedy">
+            Comedy
+          </option>
+
+          <option value="Romance">
+            Romance
+          </option>
+
+          <option value="Horror">
+            Horror
+          </option>
+
+          <option value="Adventure">
+            Adventure
+          </option>
+
+          <option value="Crime">
+            Crime
+          </option>
+
+          <option value="Fantasy">
+            Fantasy
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>Release Year</label>
+
+        <select id="yearFilter">
+
+          <option value="all">
+            All Years
+          </option>
+
+          <option value="2026">
+            2026
+          </option>
+
+          <option value="2025">
+            2025
+          </option>
+
+          <option value="2024">
+            2024
+          </option>
+
+          <option value="2023">
+            2023
+          </option>
+
+          <option value="2022">
+            2022
+          </option>
+
+          <option value="2021">
+            2021
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="filter-group">
+
+        <label>Sort By</label>
+
+        <select id="sortFilter">
+
+          <option value="newest">
+            Newest
+          </option>
+
+          <option value="oldest">
+            Oldest
+          </option>
+
+          <option value="rating">
+            Highest Rated
+          </option>
+
+          <option value="title">
+            A - Z
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <button
+      class="reset-btn"
+      onclick="resetFilters()">
+      Reset Filters
+    </button>
+
+  </section>
+
+
+  <!-- =========================
+       RESULTS
+  ========================= -->
+
+  <section class="results-bar">
+
+    <div>
+
+      <h2 id="resultTitle">
+        All Movies & Series
+      </h2>
+
+    </div>
+
+    <span id="resultCount">
+      0 titles
+    </span>
+
+  </section>
+
+
+  <!-- =========================
+       MOVIES
+  ========================= -->
+
+  <section class="movies-section">
+
+    <div
+      class="movie-grid"
+      id="movieGrid">
+    </div>
+
+
+    <div
+      class="empty-state"
+      id="emptyState">
+
+      <div class="empty-icon">
+        🎬
+      </div>
+
+      <h3>
+        No titles found
+      </h3>
+
+      <p>
+        Try changing your search or filters.
+      </p>
+
+      <button
+        class="reset-btn"
+        onclick="resetFilters()">
+        Clear Filters
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <a href="index.html" class="logo">
+          Cine<span>Gold</span>
+        </a>
+
+        <p>
+          Your destination for movies, series and
+          premium entertainment. Discover something
+          great to watch every day.
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h3>Explore</h3>
+
+        <a href="browse.html">
+          Browse
+        </a>
+
+        <a href="browse.html?type=Movie">
+          Movies
+        </a>
+
+        <a href="browse.html?type=Series">
+          Series
+        </a>
+
+        <a href="browse.html?sort=rating">
+          Trending
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h3>Company</h3>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="services.html">
+          Services
+        </a>
+
+        <a href="#">
+          Contact
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
+
+      <div>
+
+        <h3>Account</h3>
+
+        <a href="login.html">
+          Login
+        </a>
+
+        <a href="signup.html">
+          Create Account
+        </a>
+
+        <a href="profile.html">
+          Profile
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 CineGold. All rights reserved.
+      </span>
+
+      <span>
+        Entertainment for everyone.
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast">
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    /* =========================
+       DEMO MOVIES
+    ========================= */
+
+    const defaultMovies = [
+
+      {
+        id:1,
+        title:"Shadow Protocol",
+        genre:"Action",
+        type:"Movie",
+        year:2026,
+        rating:8.8,
+        duration:"2h 14m",
+        image:"https://picsum.photos/seed/shadowprotocol/300/450",
+        description:"A covert operative is pulled into a dangerous international conspiracy."
+      },
+
+      {
+        id:2,
+        title:"Midnight Chase",
+        genre:"Thriller",
+        type:"Movie",
+        year:2026,
+        rating:8.5,
+        duration:"1h 58m",
+        image:"https://picsum.photos/seed/midnightchase/300/450",
+        description:"A high-speed pursuit through a city that never sleeps."
+      },
+
+      {
+        id:3,
+        title:"Quantum Horizon",
+        genre:"Sci-Fi",
+        type:"Movie",
+        year:2026,
+        rating:9.1,
+        duration:"2h 22m",
+        image:"https://picsum.photos/seed/quantumhorizon/300/450",
+        description:"Scientists discover a gateway that could change humanity forever."
+      },
+
+      {
+        id:4,
+        title:"The Last Guardian",
+        genre:"Action",
+        type:"Movie",
+        year:2025,
+        rating:8.7,
+        duration:"2h 05m",
+        image:"https://picsum.photos/seed/lastguardian/300/450",
+        description:"A former soldier protects a mysterious young survivor."
+      },
+
+      {
+        id:5,
+        title:"Empire of Shadows",
+        genre:"Drama",
+        type:"Series",
+        year:2026,
+        rating:9,
+        duration:"10 Episodes",
+        image:"https://picsum.photos/seed/empireofshadows/300/450",
+        description:"Power, loyalty and betrayal collide inside a wealthy dynasty."
+      },
+
+      {
+        id:6,
+        title:"Neon City",
+        genre:"Sci-Fi",
+        type:"Series",
+        year:2026,
+        rating:8.6,
+        duration:"8 Episodes",
+        image:"https://picsum.photos/seed/neoncity/300/450",
+        description:"A detective investigates strange crimes in a futuristic city."
+      },
+
+      {
+        id:7,
+        title:"Broken Code",
+        genre:"Thriller",
+        type:"Series",
+        year:2025,
+        rating:8.4,
+        duration:"9 Episodes",
+        image:"https://picsum.photos/seed/brokencode/300/450",
+        description:"A programmer uncovers a secret hidden inside a global system."
+      },
+
+      {
+        id:8,
+        title:"Golden Revenge",
+        genre:"Action",
+        type:"Movie",
+        year:2026,
+        rating:8.2,
+        duration:"2h 01m",
+        image:"https://picsum.photos/seed/goldenrevenge/300/450",
+        description:"A betrayed hero returns to settle an unfinished score."
+      },
+
+      {
+        id:9,
+        title:"Dark Empire",
+        genre:"Crime",
+        type:"Series",
+        year:2025,
+        rating:8.9,
+        duration:"12 Episodes",
+        image:"https://picsum.photos/seed/darkempire/300/450",
+        description:"A criminal empire begins to collapse from within."
+      },
+
+      {
+        id:10,
+        title:"Final Mission",
+        genre:"Action",
+        type:"Movie",
+        year:2025,
+        rating:8.3,
+        duration:"2h 10m",
+        image:"https://picsum.photos/seed/finalmission/300/450",
+        description:"An elite team takes on its most dangerous mission."
+      },
+
+      {
+        id:11,
+        title:"Beyond Earth",
+        genre:"Sci-Fi",
+        type:"Movie",
+        year:2024,
+        rating:8.8,
+        duration:"2h 18m",
+        image:"https://picsum.photos/seed/beyondearth/300/450",
+        description:"Humanity searches for a new home beyond the solar system."
+      },
+
+      {
+        id:12,
+        title:"The Silent Room",
+        genre:"Horror",
+        type:"Movie",
+        year:2025,
+        rating:8.1,
+        duration:"1h 49m",
+        image:"https://picsum.photos/seed/silentroom/300/450",
+        description:"A group of friends discover something they were never meant to find."
+      },
+
+      {
+        id:13,
+        title:"Wild Frontier",
+        genre:"Adventure",
+        type:"Movie",
+        year:2024,
+        rating:8.5,
+        duration:"2h 07m",
+        image:"https://picsum.photos/seed/wildfrontier/300/450",
+        description:"A dangerous journey leads to an undiscovered world."
+      },
+
+      {
+        id:14,
+        title:"Hearts Apart",
+        genre:"Romance",
+        type:"Movie",
+        year:2025,
+        rating:7.9,
+        duration:"1h 54m",
+        image:"https://picsum.photos/seed/heartsapart/300/450",
+        description:"Two people find love when they least expect it."
+      },
+
+      {
+        id:15,
+        title:"Laugh Factory",
+        genre:"Comedy",
+        type:"Series",
+        year:2026,
+        rating:8.1,
+        duration:"10 Episodes",
+        image:"https://picsum.photos/seed/laughfactory/300/450",
+        description:"A group of friends turn everyday disasters into comedy."
+      },
+
+      {
+        id:16,
+        title:"Bloodline",
+        genre:"Drama",
+        type:"Series",
+        year:2025,
+        rating:8.7,
+        duration:"10 Episodes",
+        image:"https://picsum.photos/seed/bloodline/300/450",
+        description:"A powerful family struggles to protect its secrets."
+      },
+
+      {
+        id:17,
+        title:"Code Zero",
+        genre:"Thriller",
+        type:"Movie",
+        year:2026,
+        rating:8.6,
+        duration:"2h 03m",
+        image:"https://picsum.photos/seed/codezero/300/450",
+        description:"A hacker discovers a digital threat capable of destroying cities."
+      },
+
+      {
+        id:18,
+        title:"Kingdom Fall",
+        genre:"Fantasy",
+        type:"Series",
+        year:2024,
+        rating:8.9,
+        duration:"8 Episodes",
+        image:"https://picsum.photos/seed/kingdomfall/300/450",
+        description:"A forgotten kingdom rises against an ancient enemy."
+      }
+
+    ];
+
+
+    /* =========================
+       LOAD ADMIN DATA
+    ========================= */
+
+    let storedMovies = [];
+
+    try{
+
+      storedMovies =
+        JSON.parse(
+          localStorage.getItem("cinegold_movies")
+        ) || [];
+
+    }catch(error){
+
+      storedMovies = [];
+
+    }
+
+
+    /*
+      If admin dashboard has movie data,
+      use it. Otherwise use demo movies.
+    */
+
+    let movies =
+      storedMovies.length
+        ? storedMovies
+        : defaultMovies;
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const movieGrid =
+      document.getElementById("movieGrid");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+    const resultCount =
+      document.getElementById("resultCount");
+
+    const resultTitle =
+      document.getElementById("resultTitle");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const typeFilter =
+      document.getElementById("typeFilter");
+
+    const genreFilter =
+      document.getElementById("genreFilter");
+
+    const yearFilter =
+      document.getElementById("yearFilter");
+
+    const sortFilter =
+      document.getElementById("sortFilter");
+
+
+    /* =========================
+       URL PARAMETERS
+    ========================= */
+
+    function readURL(){
+
+      const params =
+        new URLSearchParams(
+          window.location.search
+        );
+
+      const search =
+        params.get("search");
+
+      const type =
+        params.get("type");
+
+      const genre =
+        params.get("genre");
+
+      const sort =
+        params.get("sort");
+
+      if(search){
+        searchInput.value = search;
+      }
+
+      if(type === "Movie" || type === "Series"){
+        typeFilter.value = type;
+      }
+
+      if(genre){
+        const validGenres = [
+          "Action",
+          "Thriller",
+          "Sci-Fi",
+          "Drama",
+          "Comedy",
+          "Romance",
+          "Horror",
+          "Adventure",
+          "Crime",
+          "Fantasy"
+        ];
+
+        if(validGenres.includes(genre)){
+          genreFilter.value = genre;
+        }
+      }
+
+      if(sort){
+        if(sort === "rating"){
+          sortFilter.value = "rating";
+        }
+
+        if(sort === "newest"){
+          sortFilter.value = "newest";
+        }
+
+        if(sort === "oldest"){
+          sortFilter.value = "oldest";
+        }
+
+        if(sort === "title"){
+          sortFilter.value = "title";
+        }
+      }
+
+    }
+
+
+    /* =========================
+       FILTER MOVIES
+    ========================= */
+
+    function applyFilters(){
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      const type =
+        typeFilter.value;
+
+      const genre =
+        genreFilter.value;
+
+      const year =
+        yearFilter.value;
+
+      const sort =
+        sortFilter.value;
+
+
+      let filtered =
+        movies.filter(movie => {
+
+          const title =
+            String(movie.title || "")
+              .toLowerCase();
+
+          const movieGenre =
+            String(movie.genre || "")
+              .toLowerCase();
+
+          const movieType =
+            String(movie.type || "")
+              .toLowerCase();
+
+          const description =
+            String(movie.description || "")
+              .toLowerCase();
+
+
+          const matchesSearch =
+            !search ||
+            title.includes(search) ||
+            movieGenre.includes(search) ||
+            movieType.includes(search) ||
+            description.includes(search);
+
+
+          const matchesType =
+            type === "all" ||
+            movie.type === type;
+
+
+          const matchesGenre =
+            genre === "all" ||
+            movie.genre === genre;
+
+
+          const matchesYear =
+            year === "all" ||
+            String(movie.year) === year;
+
+
+          return (
+            matchesSearch &&
+            matchesType &&
+            matchesGenre &&
+            matchesYear
+          );
+
+        });
+
+
+      /* =========================
+         SORT
+      ========================= */
+
+      if(sort === "newest"){
+
+        filtered.sort(
+          (a,b) =>
+            Number(b.year || 0) -
+            Number(a.year || 0)
+        );
+
+      }
+
+      else if(sort === "oldest"){
+
+        filtered.sort(
+          (a,b) =>
+            Number(a.year || 0) -
+            Number(b.year || 0)
+        );
+
+      }
+
+      else if(sort === "rating"){
+
+        filtered.sort(
+          (a,b) =>
+            Number(b.rating || 0) -
+            Number(a.rating || 0)
+        );
+
+      }
+
+      else if(sort === "title"){
+
+        filtered.sort(
+          (a,b) =>
+            String(a.title || "")
+              .localeCompare(
+                String(b.title || "")
+              )
+        );
+
+      }
+
+
+      renderMovies(filtered);
+
+    }
+
+
+    /* =========================
+       RENDER MOVIES
+    ========================= */
+
+    function renderMovies(list){
+
+      movieGrid.innerHTML = "";
+
+      resultCount.textContent =
+        `${list.length} ${
+          list.length === 1
+            ? "title"
+            : "titles"
+        }`;
+
+
+      /* RESULT TITLE */
+
+      const search =
+        searchInput.value.trim();
+
+      if(search){
+
+        resultTitle.textContent =
+          `Search results for "${search}"`;
+
+      }
+
+      else if(typeFilter.value !== "all"){
+
+        resultTitle.textContent =
+          typeFilter.value === "Movie"
+            ? "Movies"
+            : "Series";
+
+      }
+
+      else if(genreFilter.value !== "all"){
+
+        resultTitle.textContent =
+          `${genreFilter.value} Titles`;
+
+      }
+
+      else{
+
+        resultTitle.textContent =
+          "All Movies & Series";
+
+      }
+
+
+      /* EMPTY */
+
+      if(!list.length){
+
+        emptyState.classList.add("show");
+
+        return;
+
+      }
+
+      emptyState.classList.remove("show");
+
+
+      /* CARDS */
+
+      list.forEach(movie => {
+
+        const card =
+          document.createElement("article");
+
+        card.className =
+          "movie-card";
+
+
+        const watchlist =
+          getWatchlist();
+
+        const isSaved =
+          watchlist.some(
+            item =>
+              String(item.id) ===
+              String(movie.id)
+          );
+
+
+        card.innerHTML = `
+
+          <div class="poster">
+
+            <img
+              src="${escapeHTML(movie.image || fallbackImage(movie.title))}"
+              alt="${escapeHTML(movie.title || "Movie poster")}"
+              loading="lazy"
+              onerror="this.src='${fallbackImage(movie.title)}'">
+
+            <div class="rating">
+              ⭐ ${movie.rating || "N/A"}
+            </div>
+
+            <div class="type-badge">
+              ${escapeHTML(movie.type || "Movie")}
+            </div>
+
+            <button
+              class="watch-btn"
+              onclick="openMovie(${movie.id})"
+              aria-label="Watch ${escapeHTML(movie.title)}">
+              ▶
+            </button>
+
+          </div>
+
+
+          <div class="movie-info">
+
+            <div class="movie-title">
+              ${escapeHTML(movie.title || "Untitled")}
+            </div>
+
+            <div class="movie-meta">
+
+              <span>
+                ${movie.year || "—"}
+              </span>
+
+              <span class="genre">
+                ${escapeHTML(movie.genre || "General")}
+              </span>
+
+              <span>
+                ${escapeHTML(movie.duration || "")}
+              </span>
+
+            </div>
+
+
+            <div class="card-actions">
+
+              <a
+                class="view-btn"
+                href="movie.html?id=${encodeURIComponent(movie.id)}">
+                View Details
+              </a>
+
+              <button
+                class="list-btn ${isSaved ? "active" : ""}"
+                onclick="toggleWatchlist(${movie.id}, this)"
+                aria-label="Add to watchlist">
+                ${isSaved ? "✓" : "+"}
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+
+        movieGrid.appendChild(card);
+
+      });
+
+    }
+
+
+    /* =========================
+       WATCHLIST
+    ========================= */
+
+    function getWatchlist(){
+
+      try{
+
+        return JSON.parse(
+          localStorage.getItem(
+            "cinegold_watchlist"
+          )
+        ) || [];
+
+      }catch(error){
+
+        return [];
+
+      }
+
+    }
+
+
+    function toggleWatchlist(id, button){
+
+      const movie =
+        movies.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if(!movie) return;
+
+
+      let watchlist =
+        getWatchlist();
+
+
+      const index =
+        watchlist.findIndex(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if(index >= 0){
+
+        watchlist.splice(index,1);
+
+        button.classList.remove("active");
+
+        button.textContent = "+";
+
+        showToast(
+          "Removed from your watchlist"
+        );
+
+      }else{
+
+        watchlist.push(movie);
+
+        button.classList.add("active");
+
+        button.textContent = "✓";
+
+        showToast(
+          "Added to your watchlist"
+        );
+
+      }
+
+
+      localStorage.setItem(
+        "cinegold_watchlist",
+        JSON.stringify(watchlist)
+      );
+
+    }
+
+
+    /* =========================
+       OPEN MOVIE
+    ========================= */
+
+    function openMovie(id){
+
+      window.location.href =
+        `movie.html?id=${encodeURIComponent(id)}`;
+
+    }
+
+
+    /* =========================
+       RESET
+    ========================= */
+
+    function resetFilters(){
+
+      searchInput.value = "";
+
+      typeFilter.value = "all";
+
+      genreFilter.value = "all";
+
+      yearFilter.value = "all";
+
+      sortFilter.value = "newest";
+
+      history.replaceState(
+        {},
+        "",
+        "browse.html"
+      );
+
+      applyFilters();
+
+    }
+
+
+    /* =========================
+       SEARCH BUTTON
+    ========================= */
+
+    function focusSearch(){
+
+      searchInput.focus();
+
+      window.scrollTo({
+        top:document.querySelector(
+          ".search-section"
+        ).offsetTop - 90,
+        behavior:"smooth"
+      });
+
+    }
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    function toggleMenu(){
+
+      document
+        .getElementById("mobileMenu")
+        .classList.toggle("open");
+
+    }
+
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    let toastTimer;
+
+    function showToast(message){
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent =
+        message;
+
+      toast.classList.add("show");
+
+      clearTimeout(toastTimer);
+
+      toastTimer =
+        setTimeout(() => {
+
+          toast.classList.remove("show");
+
+        },2500);
+
+    }
+
+
+    /* =========================
+       SECURITY HELPERS
+    ========================= */
+
+    function escapeHTML(value){
+
+      return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+    }
+
+
+    function fallbackImage(title){
+
+      return "https://picsum.photos/seed/" +
+        encodeURIComponent(
+          String(title || "cinegold")
+        ) +
+        "/300/450";
+
+    }
+
+
+    /* =========================
+       LIVE FILTER EVENTS
+    ========================= */
+
+    searchInput.addEventListener(
+      "input",
+      applyFilters
+    );
+
+    typeFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+    genreFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+    yearFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+    sortFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+
+    searchInput.addEventListener(
+      "keydown",
+      event => {
+
+        if(event.key === "Enter"){
+          applyFilters();
+        }
+
+      }
+    );
+
+
+    /* =========================
+       INITIALIZE
+    ========================= */
+
+    readURL();
+
+    applyFilters();
+
+  </script>
+
+
+    <!-- =========================
+         SESSION-AWARE NAV
+         Swaps Login/Sign Up for the
+         logged-in user + Logout once a
+         CineGold session exists.
+    ========================== -->
+    <script>
+        (function () {
+
+            function getSession() {
+                const raw =
+                    localStorage.getItem("cinegold_session") ||
+                    sessionStorage.getItem("cinegold_session");
+
+                if (!raw) return null;
+
+                try {
+                    const session = JSON.parse(raw);
+                    return session && session.loggedIn ? session : null;
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function clearSession() {
+                localStorage.removeItem("cinegold_session");
+                sessionStorage.removeItem("cinegold_session");
+            }
+
+            window.cinegoldLogout = function (event) {
+                if (event) event.preventDefault();
+
+                if (confirm("Are you sure you want to logout?")) {
+                    clearSession();
+                    window.location.href = "index.html";
+                }
+            };
+
+            const session = getSession();
+            if (!session) return;
+
+            const navContainers = document.querySelectorAll(
+                "header.navbar, nav.navbar, .mobile-menu, #mobileMenu"
+            );
+
+            navContainers.forEach(function (container) {
+
+                const loginLink = container.querySelector('a[href="login.html"]');
+                const signupLink = container.querySelector('a[href="signup.html"]');
+
+                if (!loginLink) return;
+
+                const firstName =
+                    (session.name || "there").trim().split(" ")[0];
+
+                const profileLink = document.createElement("a");
+                profileLink.href = "profile.html";
+                profileLink.className = loginLink.className;
+                profileLink.textContent = "Hi, " + firstName;
+                if (session.email) profileLink.title = session.email;
+
+                loginLink.replaceWith(profileLink);
+
+                if (signupLink) {
+                    const logoutLink = document.createElement("a");
+                    logoutLink.href = "#";
+                    logoutLink.className = signupLink.className;
+                    logoutLink.textContent = "Logout";
+                    logoutLink.addEventListener("click", window.cinegoldLogout);
+
+                    signupLink.replaceWith(logoutLink);
+                }
+
+            });
+
+        })();
+    </script>
+
+</body>
+</html>
