@@ -231,7 +231,11 @@
             loginBtn.disabled = true;
             loginBtn.textContent = "Signing in...";
 
-            fetch("http://localhost:3000/api/admin-login", {
+            const apiBaseUrl = window.location.hostname
+                ? `http://${window.location.hostname}:3000`
+                : "http://localhost:3000";
+
+            fetch(`${apiBaseUrl}/api/admin-login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

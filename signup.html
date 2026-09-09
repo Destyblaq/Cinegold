@@ -1333,7 +1333,11 @@
 
                 /* CREATE ACCOUNT — real request to the CineGold backend */
 
-                fetch("http://localhost:3000/api/signup", {
+                const apiBaseUrl = window.location.hostname
+                    ? `http://${window.location.hostname}:3000`
+                    : "http://localhost:3000";
+
+                fetch(`${apiBaseUrl}/api/signup`, {
 
                     method: "POST",
 
